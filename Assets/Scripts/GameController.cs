@@ -96,21 +96,33 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            boxes = boxes.Select((box) => box.MoveX(posMax)).ToArray();
+            boxes =
+                boxes.GroupBy((box) => box.Y)
+                     .Select(g => g.OrderByDescending(box => box.X).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveX(posMax - i)))
+                .SelectMany(bs => bs)
+                .ToArray();
             UpdatePosition();
             Debug.Log("right");
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            boxes = boxes.Select((box) => box.MoveY(posMin)).ToArray();
+            boxes =
+                boxes.GroupBy((box) => box.X)
+                     .Select(g => g.OrderBy(box => box.Y).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveY(posMin + i)))
+                     .SelectMany(bs => bs)
+                     .ToArray();
             UpdatePosition();
             Debug.Log("up");
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            boxes = boxes.Select((box) => box.MoveY(posMax)).ToArray();
+            boxes =
+                boxes.GroupBy((box) => box.X)
+                .Select(g => g.OrderByDescending(box => box.Y).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveY(posMax - i)))
+                .SelectMany(bs => bs)
+                .ToArray();
             UpdatePosition();
             Debug.Log("down");
         }
