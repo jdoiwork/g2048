@@ -82,7 +82,6 @@ public class GameController : MonoBehaviour
         }
         else if (bs.Last().N == box.N)
         {
-            //Debug.Log(box.Double().N);
             return bs.Reverse().Skip(1).Reverse().Append(box.Double()).ToArray();
 
         }
@@ -92,48 +91,60 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private NumberBox[] MergeAsc(NumberBox[] boxes, Func<NumberBox, int> key, Func<NumberBox, int> getPos, Func<NumberBox, int, NumberBox> updatePos)
+    {
+        return
+            boxes.GroupBy(key)
+                 .Select(g => g.OrderBy(getPos)
+                               .Aggregate(new NumberBox[0], MergeBox)
+                               .Select((box, i) => updatePos(box, posMin + i)))
+                 .SelectMany(bs => bs)
+                 .ToArray();
+    }
+
+    private NumberBox[] MergeDesc(NumberBox[] boxes, Func<NumberBox, int> key, Func<NumberBox, int> getPos, Func<NumberBox, int, NumberBox> updatePos)
+    {
+        return
+            boxes.GroupBy(key)
+                 .Select(g => g.OrderByDescending(getPos)
+                               .Aggregate(new NumberBox[0], MergeBox)
+                               .Select((box, i) => updatePos(box, posMax - i)))
+                 .SelectMany(bs => bs)
+                 .ToArray();
+    }
+
     void Update()
     {
+        Func<NumberBox, int> getX = box => box.X;
+        Func<NumberBox, int> getY = box => box.Y;
+
+        Func<NumberBox, int, NumberBox> moveX = (box, x) => box.MoveX(x);
+        Func<NumberBox, int, NumberBox> moveY = (box, y) => box.MoveY(y);
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            boxes =
-                boxes.GroupBy((box) => box.Y)
-                     .Select(g => g.OrderBy(box => box.X).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveX(posMin + i)))
-                     .SelectMany(bs => bs)
-                     .ToArray();
+            boxes = MergeAsc(boxes, getY, getX, moveX);
             UpdatePosition();
             Debug.Log("left");
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            boxes =
-                boxes.GroupBy((box) => box.Y)
-                     .Select(g => g.OrderByDescending(box => box.X).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveX(posMax - i)))
-                .SelectMany(bs => bs)
-                .ToArray();
+            boxes = MergeDesc(boxes, getY, getX, moveX);
             UpdatePosition();
             Debug.Log("right");
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            boxes =
-                boxes.GroupBy((box) => box.X)
-                     .Select(g => g.OrderBy(box => box.Y).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveY(posMin + i)))
-                     .SelectMany(bs => bs)
-                     .ToArray();
+            boxes = MergeAsc(boxes, getX, getY, moveY);
             UpdatePosition();
             Debug.Log("up");
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            boxes =
-                boxes.GroupBy((box) => box.X)
-                .Select(g => g.OrderByDescending(box => box.Y).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveY(posMax - i)))
-                .SelectMany(bs => bs)
-                .ToArray();
+            boxes = MergeDesc(boxes, getX, getY, moveY);
             UpdatePosition();
             Debug.Log("down");
         }
