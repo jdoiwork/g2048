@@ -27,9 +27,11 @@ public class NumberController : MonoBehaviour {
         Debug.Log("UP");
     }
 
-    private void SetNumberText(ulong n)
+    public NumberController SetNumberText(ulong n)
     {
+        Debug.Log(string.Format("SetNumberText {0}", n));
         text.text = n.ToString();
+        return this;
     }
 
     public void Double()
@@ -38,9 +40,11 @@ public class NumberController : MonoBehaviour {
         this.SetNumberText(this.number);
     }
 
-    public void SetPos(int x, int y)
+    public NumberController SetPos(int x, int y)
     {
         var t = this.gameObject.transform;
         t.position = new Vector3(-3f + sx * x, t.position.y, 3f + sy * y);
+
+        return this;
     }
 }

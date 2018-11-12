@@ -51,15 +51,45 @@ public class GameController : MonoBehaviour
 
     private void UpdatePosition()
     {
-        boxes.Zip(viewBoxes, (m, v) => Tuple.Create(v, m.X, m.Y))
-             .Each((view, x, y) => view.SetPos(x, y));
+        boxes.Zip(viewBoxes, (m, v) => Tuple.Create(v, m.X, m.Y, m.N))
+             .Each((view, x, y, n) => view.SetPos(x, y).SetNumberText(n));
+
+        var len = boxes.Length;
+        foreach (var item in viewBoxes.Skip(len))
+        {
+            UnityEngine.Object.Destroy(item.gameObject);
+        }
+
+        viewBoxes = viewBoxes.Take(len).ToArray();
+    }
+
+    private NumberBox[] MergeBox(NumberBox[] bs, NumberBox box)
+    {
+        if (!bs.Any())
+        {
+            return bs.Append(box).ToArray();
+        }
+        else if (bs.Last().N == box.N)
+        {
+            //Debug.Log(box.Double().N);
+            return bs.Reverse().Skip(1).Reverse().Prepend(box.Double()).ToArray();
+
+        }
+        else
+        {
+            return bs.Append(box).ToArray();
+        }
     }
 
     void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            boxes = boxes.Select((box) => box.MoveX(posMin)).ToArray();
+            boxes =
+                boxes.GroupBy((box) => box.Y)
+                     .Select(g => g.OrderBy(box => box.X).Aggregate(new NumberBox[0], MergeBox).Select((box, i) => box.MoveX(posMin + i)))
+                     .SelectMany(bs => bs)
+                     .ToArray();
             UpdatePosition();
             Debug.Log("left");
         }
