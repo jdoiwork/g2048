@@ -59,28 +59,29 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            boxes[0].X = 0;
+            boxes = boxes.Select((box) => box.MoveX(posMin)).ToArray();
+            boxes = boxes.Select((box) => box.MoveX(posMin)).ToArray();
             UpdatePosition();
             Debug.Log("left");
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            boxes[0].X = 3;
+            boxes = boxes.Select((box) => box.MoveX(posMax)).ToArray();
             UpdatePosition();
             Debug.Log("right");
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            boxes[0].Y = 0;
+            boxes = boxes.Select((box) => box.MoveY(posMin)).ToArray();
             UpdatePosition();
             Debug.Log("up");
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            boxes[0].Y = 3;
+            boxes = boxes.Select((box) => box.MoveY(posMax)).ToArray();
             UpdatePosition();
             Debug.Log("down");
         }

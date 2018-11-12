@@ -17,13 +17,23 @@ namespace AssemblyCSharp.Assets.Scripts.Models
         public int X
         {
             get;
-            set;
+            private set;
         }
 
         public int Y
         {
             get;
-            set;
+            private set;
+        }
+
+        public NumberBox MoveX(int x)
+        {
+            return new NumberBox(x, this.Y);
+        }
+
+        public NumberBox MoveY(int y)
+        {
+            return new NumberBox(this.X, y);
         }
     }
 }
