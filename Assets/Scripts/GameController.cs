@@ -8,8 +8,8 @@ using Jdoi.Functional;
 
 public class GameController : MonoBehaviour
 {
-    private NumberBox[] boxes;
-    private NumberController[] viewBoxes;
+    private NumberBox[] boxes = new NumberBox[] {};
+    private NumberController[] viewBoxes = new NumberController[] {};
 
     public GameObject prefab;
 
@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
 
     public void OnDebugButton()
     {
+        AddBox();
+        UpdatePosition();
         Debug.Log("hello debug button");
     }
 
@@ -29,36 +31,28 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        boxes = new NumberBox[1];
-        viewBoxes = new NumberController[1];
+        AddBox();
+        UpdatePosition();
+    }
 
-        var newViewBox = Instantiate(prefab).GetComponent<NumberController>();
-
+    private void AddBox()
+    {
         var x = RandomPos();
         var y = RandomPos();
 
+        var box = new NumberBox(x, y);
 
+        var newViewBox = Instantiate(prefab).GetComponent<NumberController>();
         newViewBox.SetPos(x, y);
 
-        var box = new NumberBox();
-        box.X = x;
-        box.Y = y;
-
-        boxes[0] = box;
-        viewBoxes[0] = newViewBox;
-        UpdatePosition();
+        boxes = box.Cons(boxes).ToArray();
+        viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
     }
 
     private void UpdatePosition()
     {
-        var query = boxes.Zip(viewBoxes, (m, v) => new { View = v, m.X, m.Y });
-        var query2 = boxes.Zip(viewBoxes, (m, v) => System.Tuple.Create(v, m.X, m.Y));
-        query2.Each((view, x, y) => view.SetPos(x, y));
-
-        foreach (var item in query)
-        {
-            item.View.SetPos(item.X, item.Y);
-        }
+        boxes.Zip(viewBoxes, (m, v) => Tuple.Create(v, m.X, m.Y))
+             .Each((view, x, y) => view.SetPos(x, y));
     }
 
     void FixedUpdate()
