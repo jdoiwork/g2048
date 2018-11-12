@@ -37,16 +37,23 @@ public class GameController : MonoBehaviour
 
     private void AddBox()
     {
-        var x = RandomPos();
-        var y = RandomPos();
+        var range = Enumerable.Range(0, posMax);
+        var rps =
+            range.SelectMany(_ => range, (x, y) => new { x, y })
+                    .Where(p => !boxes.Any(box => box.X == p.x && box.Y == p.y))
+                    .ToArray();
+        if (rps.Any())
+        {
+            var idx = UnityEngine.Random.Range(0, rps.Length - 1);
+            var pos = rps[idx];
+            var box = new NumberBox(pos.x, pos.y);
 
-        var box = new NumberBox(x, y);
+            var newViewBox = Instantiate(prefab).GetComponent<NumberController>();
+            newViewBox.SetPos(pos.x, pos.y);
 
-        var newViewBox = Instantiate(prefab).GetComponent<NumberController>();
-        newViewBox.SetPos(x, y);
-
-        boxes = box.Cons(boxes).ToArray();
-        viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
+            boxes = box.Cons(boxes).ToArray();
+            viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
+        }
     }
 
     private void UpdatePosition()
