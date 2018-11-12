@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour
         else if (bs.Last().N == box.N)
         {
             //Debug.Log(box.Double().N);
-            return bs.Reverse().Skip(1).Reverse().Prepend(box.Double()).ToArray();
+            return bs.Reverse().Skip(1).Reverse().Append(box.Double()).ToArray();
 
         }
         else
