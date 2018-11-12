@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
 
     private void AddBox()
     {
-        var range = Enumerable.Range(0, posMax);
+        var range = Enumerable.Range(0, posMax + 1);
         var rps =
             range.SelectMany(_ => range, (x, y) => new { x, y })
                     .Where(p => !boxes.Any(box => box.X == p.x && box.Y == p.y))
@@ -92,7 +92,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
