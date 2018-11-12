@@ -4,6 +4,7 @@ using AssemblyCSharp.Assets.Scripts.Models;
 using UnityEngine;
 using System;
 using System.Linq;
+using Jdoi.Functional;
 
 public class GameController : MonoBehaviour
 {
@@ -12,9 +13,17 @@ public class GameController : MonoBehaviour
 
     public GameObject prefab;
 
+    public int posMin = 0;
+    public int posMax = 3;
+
     public void OnDebugButton()
     {
         Debug.Log("hello debug button");
+    }
+
+    public int RandomPos()
+    {
+        return UnityEngine.Random.Range(posMin, posMax);
     }
 
     // Use this for initialization
@@ -24,11 +33,16 @@ public class GameController : MonoBehaviour
         viewBoxes = new NumberController[1];
 
         var newViewBox = Instantiate(prefab).GetComponent<NumberController>();
-        newViewBox.SetPos(2, 3);
+
+        var x = RandomPos();
+        var y = RandomPos();
+
+
+        newViewBox.SetPos(x, y);
 
         var box = new NumberBox();
-        box.X = 2;
-        box.Y = 3;
+        box.X = x;
+        box.Y = y;
 
         boxes[0] = box;
         viewBoxes[0] = newViewBox;
@@ -38,6 +52,8 @@ public class GameController : MonoBehaviour
     private void UpdatePosition()
     {
         var query = boxes.Zip(viewBoxes, (m, v) => new { View = v, m.X, m.Y });
+        var query2 = boxes.Zip(viewBoxes, (m, v) => System.Tuple.Create(v, m.X, m.Y));
+        query2.Each((view, x, y) => view.SetPos(x, y));
 
         foreach (var item in query)
         {
