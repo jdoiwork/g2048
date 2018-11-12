@@ -54,6 +54,10 @@ public class GameController : MonoBehaviour
             boxes = box.Cons(boxes).ToArray();
             viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
         }
+        else
+        {
+            // Game Over?
+        }
     }
 
     private void UpdatePosition()
