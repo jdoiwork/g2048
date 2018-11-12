@@ -60,7 +60,6 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             boxes = boxes.Select((box) => box.MoveX(posMin)).ToArray();
-            boxes = boxes.Select((box) => box.MoveX(posMin)).ToArray();
             UpdatePosition();
             Debug.Log("left");
         }
