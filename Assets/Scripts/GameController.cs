@@ -12,6 +12,11 @@ public class GameController : MonoBehaviour
 
     public GameObject prefab;
 
+    public void OnDebugButton()
+    {
+        Debug.Log("hello debug button");
+    }
+
     // Use this for initialization
     void Start()
     {
