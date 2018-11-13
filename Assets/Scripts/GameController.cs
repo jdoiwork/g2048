@@ -5,18 +5,18 @@ using UnityEngine;
 using System;
 using System.Linq;
 using Jdoi.Functional;
+using Jdoi;
 
 public class GameController : MonoBehaviour
 {
-    private NumberBox[] boxes = new NumberBox[] {};
-    private NumberController[] viewBoxes = new NumberController[] {};
+    private NumberBox[] boxes = new NumberBox[] { };
+    private NumberController[] viewBoxes = new NumberController[] { };
     public ScoreController score;
     public ProgressBarCircle progress;
 
     public GameObject prefab;
 
-    public int posMin = 0;
-    public int posMax = 3;
+    public BoxTools boxTools;
     public float timeRemain;
 
     public void OnDebugButton()
@@ -26,14 +26,10 @@ public class GameController : MonoBehaviour
         Debug.Log("hello debug button");
     }
 
-    public int RandomPos()
-    {
-        return UnityEngine.Random.Range(posMin, posMax);
-    }
-
     // Use this for initialization
     void Start()
     {
+        boxTools = new BoxTools(0, 3, (box) => score.Plus(box.N));
         timeRemain = 100;
         SetProgress();
         AddBox();
@@ -47,7 +43,7 @@ public class GameController : MonoBehaviour
 
     private void AddBox()
     {
-        var range = Enumerable.Range(0, posMax + 1);
+        var range = Enumerable.Range(0, boxTools.PosMax + 1);
         var rps =
             range.SelectMany(_ => range, (x, y) => new { x, y })
                     .Where(p => !boxes.Any(box => box.X == p.x && box.Y == p.y))
@@ -86,47 +82,6 @@ public class GameController : MonoBehaviour
         viewBoxes = viewBoxes.Take(len).ToArray();
     }
 
-    private NumberBox[] MergeBox(NumberBox[] bs, NumberBox box)
-    {
-        if (!bs.Any())
-        {
-            return bs.Append(box).ToArray();
-        }
-        else if (bs.Last().N == box.N)
-        {
-            var doubledBox = box.Double();
-            score.Plus(doubledBox.N);
-            return bs.Reverse().Skip(1).Reverse().Append(doubledBox).ToArray();
-
-        }
-        else
-        {
-            return bs.Append(box).ToArray();
-        }
-    }
-
-    private NumberBox[] MergeAsc(NumberBox[] boxes, Func<NumberBox, int> key, Func<NumberBox, int> getPos, Func<NumberBox, int, NumberBox> updatePos)
-    {
-        return
-            boxes.GroupBy(key)
-                 .Select(g => g.OrderBy(getPos)
-                               .Aggregate(new NumberBox[0], MergeBox)
-                               .Select((box, i) => updatePos(box, posMin + i)))
-                 .SelectMany(bs => bs)
-                 .ToArray();
-    }
-
-    private NumberBox[] MergeDesc(NumberBox[] boxes, Func<NumberBox, int> key, Func<NumberBox, int> getPos, Func<NumberBox, int, NumberBox> updatePos)
-    {
-        return
-            boxes.GroupBy(key)
-                 .Select(g => g.OrderByDescending(getPos)
-                               .Aggregate(new NumberBox[0], MergeBox)
-                               .Select((box, i) => updatePos(box, posMax - i)))
-                 .SelectMany(bs => bs)
-                 .ToArray();
-    }
-
     void Update()
     {
         this.timeRemain -= Time.deltaTime;
@@ -140,28 +95,28 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            boxes = MergeAsc(boxes, getY, getX, moveX);
+            boxes = boxTools.MergeAsc(boxes, getY, getX, moveX);
             UpdatePosition();
             Debug.Log("left");
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            boxes = MergeDesc(boxes, getY, getX, moveX);
+            boxes = boxTools.MergeDesc(boxes, getY, getX, moveX);
             UpdatePosition();
             Debug.Log("right");
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            boxes = MergeAsc(boxes, getX, getY, moveY);
+            boxes = boxTools.MergeAsc(boxes, getX, getY, moveY);
             UpdatePosition();
             Debug.Log("up");
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            boxes = MergeDesc(boxes, getX, getY, moveY);
+            boxes = boxTools.MergeDesc(boxes, getX, getY, moveY);
             UpdatePosition();
             Debug.Log("down");
         }
