@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 {
     private NumberBox[] boxes = new NumberBox[] {};
     private NumberController[] viewBoxes = new NumberController[] {};
+    public ScoreController score;
 
     public GameObject prefab;
 
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        score.SetScore(2048);
         AddBox();
         UpdatePosition();
     }
