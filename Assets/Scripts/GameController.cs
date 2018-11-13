@@ -11,11 +11,13 @@ public class GameController : MonoBehaviour
     private NumberBox[] boxes = new NumberBox[] {};
     private NumberController[] viewBoxes = new NumberController[] {};
     public ScoreController score;
+    public ProgressBarCircle progress;
 
     public GameObject prefab;
 
     public int posMin = 0;
     public int posMax = 3;
+    public float timeRemain;
 
     public void OnDebugButton()
     {
@@ -32,8 +34,15 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        timeRemain = 100;
+        SetProgress();
         AddBox();
         UpdatePosition();
+    }
+
+    private void SetProgress()
+    {
+        this.progress.BarValue = timeRemain;
     }
 
     private void AddBox()
@@ -120,6 +129,9 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        this.timeRemain -= Time.deltaTime;
+        this.SetProgress();
+
         Func<NumberBox, int> getX = box => box.X;
         Func<NumberBox, int> getY = box => box.Y;
 
