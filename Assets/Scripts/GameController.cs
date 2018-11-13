@@ -32,7 +32,6 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        score.SetScore(2048);
         AddBox();
         UpdatePosition();
     }
@@ -55,6 +54,8 @@ public class GameController : MonoBehaviour
 
             boxes = box.Cons(boxes).ToArray();
             viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
+
+            score.Plus(box.N);
         }
         else
         {
@@ -84,7 +85,9 @@ public class GameController : MonoBehaviour
         }
         else if (bs.Last().N == box.N)
         {
-            return bs.Reverse().Skip(1).Reverse().Append(box.Double()).ToArray();
+            var doubledBox = box.Double();
+            score.Plus(doubledBox.N);
+            return bs.Reverse().Skip(1).Reverse().Append(doubledBox).ToArray();
 
         }
         else
