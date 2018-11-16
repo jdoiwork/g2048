@@ -86,11 +86,11 @@ public class GameController : MonoBehaviour
         this.timeRemain -= Time.deltaTime;
         this.SetProgress();
 
-        Func<NumberBox, int> getX = box => box.X;
-        Func<NumberBox, int> getY = box => box.Y;
+        var getX = BoxTools.GetX;
+        var getY = BoxTools.GetY;
 
-        Func<NumberBox, int, NumberBox> moveX = (box, x) => box.MoveX(x);
-        Func<NumberBox, int, NumberBox> moveY = (box, y) => box.MoveY(y);
+        var moveX = BoxTools.MoveX;
+        var moveY = BoxTools.MoveY;
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {

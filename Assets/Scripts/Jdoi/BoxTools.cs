@@ -90,5 +90,12 @@ namespace Jdoi
                 pointNotFound();
             }
         }
+
+        public static readonly Func<NumberBox, int> GetX = box => box.X;
+        public static readonly Func<NumberBox, int> GetY = box => box.Y;
+
+        public static readonly Func<NumberBox, int, NumberBox> MoveX = (box, x) => box.MoveX(x);
+        public static readonly Func<NumberBox, int, NumberBox> MoveY = (box, y) => box.MoveY(y);
+
     }
 }
