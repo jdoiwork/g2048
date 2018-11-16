@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AssemblyCSharp.Assets.Scripts.Models;
 
@@ -73,5 +74,21 @@ namespace Jdoi
                      .ToArray();
         }
 
+        public void AddBox(IEnumerable<NumberBox> boxes, Action<Pos[]> pointsFound, Action pointNotFound)
+        {
+            var range = Enumerable.Range(0, this.PosMax + 1);
+            var rps =
+                range.SelectMany(_ => range, (x, y) => new Pos(x, y))
+                        .Where(p => !boxes.Any(box => box.X == p.X && box.Y == p.Y))
+                        .ToArray();
+
+            if (rps.Any())
+            {
+                pointsFound(rps);
+            }
+            else {
+                pointNotFound();
+            }
+        }
     }
 }
