@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         boxTools = new BoxTools(0, 3, (box) => score.Plus(box.N));
-        timeRemain = 100;
+        timeRemain = 4;
         SetProgress();
         AddBox();
         UpdatePosition();
@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
 
     private void SetProgress()
     {
-        this.progress.BarValue = timeRemain;
+        this.progress.BarValue = timeRemain / 4.0f * 100;
     }
 
     private void AddBox()
@@ -85,6 +85,11 @@ public class GameController : MonoBehaviour
     {
         this.timeRemain -= Time.deltaTime;
         this.SetProgress();
+        if (this.timeRemain < 0)
+        {
+            this.timeRemain = 4;
+            this.AddBox();
+        }
 
 
         var inputs = new[] {
