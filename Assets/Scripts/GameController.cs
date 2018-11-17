@@ -86,38 +86,22 @@ public class GameController : MonoBehaviour
         this.timeRemain -= Time.deltaTime;
         this.SetProgress();
 
-        var getX = BoxTools.GetX;
-        var getY = BoxTools.GetY;
 
-        var moveX = BoxTools.MoveX;
-        var moveY = BoxTools.MoveY;
+        var inputs = new[] {
+            new { Code = KeyCode.LeftArrow,  Merge = boxTools.MergeLeft },
+            new { Code = KeyCode.RightArrow, Merge = boxTools.MergeRight },
+            new { Code = KeyCode.UpArrow,    Merge = boxTools.MergeUp },
+            new { Code = KeyCode.DownArrow,  Merge = boxTools.MergeDown },
+        };
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        var newBoxes =
+            inputs.Where(input => Input.GetKeyDown(input.Code))
+                  .Aggregate(boxes, (bs, input) => input.Merge(bs));
+
+        if (newBoxes != boxes)
         {
-            boxes = boxTools.MergeAsc(boxes, getY, getX, moveX);
+            boxes = newBoxes;
             UpdatePosition();
-            Debug.Log("left");
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            boxes = boxTools.MergeDesc(boxes, getY, getX, moveX);
-            UpdatePosition();
-            Debug.Log("right");
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            boxes = boxTools.MergeAsc(boxes, getX, getY, moveY);
-            UpdatePosition();
-            Debug.Log("up");
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            boxes = boxTools.MergeDesc(boxes, getX, getY, moveY);
-            UpdatePosition();
-            Debug.Log("down");
         }
     }
 }

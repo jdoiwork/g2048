@@ -97,5 +97,32 @@ namespace Jdoi
         public static readonly Func<NumberBox, int, NumberBox> MoveX = (box, x) => box.MoveX(x);
         public static readonly Func<NumberBox, int, NumberBox> MoveY = (box, y) => box.MoveY(y);
 
+        public Func<NumberBox[], NumberBox[]> MergeLeft
+        {
+            get {
+                return (boxes) => this.MergeAsc(boxes, GetY, GetX, MoveX);
+            }
+        }
+
+        public Func<NumberBox[], NumberBox[]> MergeRight
+        {
+            get {
+                return (boxes) => this.MergeDesc(boxes, GetY, GetX, MoveX);
+            }
+        }
+
+        public Func<NumberBox[], NumberBox[]> MergeUp
+        {
+            get {
+                return (boxes) => this.MergeAsc(boxes, GetX, GetY, MoveY);
+            }
+        }
+
+        public Func<NumberBox[], NumberBox[]> MergeDown
+        {
+            get {
+                return (boxes) => this.MergeDesc(boxes, GetX, GetY, MoveY);
+            }
+        }
     }
 }
