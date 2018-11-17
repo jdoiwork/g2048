@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     public BoxTools boxTools;
     public float currentTimeRemain;
     public float maxTimeRemain;
+    public float level;
 
     public void OnDebugButton()
     {
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
     {
         boxTools = new BoxTools(0, 3, (box) => score.Plus(box.N));
         maxTimeRemain = 4.0f;
+        level = 0;
         currentTimeRemain = maxTimeRemain;
         SetProgress();
         AddBox();
@@ -89,6 +91,8 @@ public class GameController : MonoBehaviour
         this.SetProgress();
         if (this.currentTimeRemain < 0)
         {
+            level++;
+            maxTimeRemain *= 0.99f;
             this.currentTimeRemain = maxTimeRemain;
             this.AddBox();
         }
