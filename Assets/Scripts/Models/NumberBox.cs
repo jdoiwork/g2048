@@ -1,5 +1,5 @@
 ﻿using System;
-namespace AssemblyCSharp.Assets.Scripts.Models
+namespace G2048.Models
 {
     public class NumberBox
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using AssemblyCSharp.Assets.Scripts.Models;
+using G2048.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
@@ -25,8 +25,9 @@ public class GameController : MonoBehaviour
 
     public void OnDebugButton()
     {
-        AddBox();
-        UpdatePosition();
+        //AddBox();
+        //UpdatePosition();
+        GameOver();
         Debug.Log("hello debug button");
     }
 
@@ -37,6 +38,7 @@ public class GameController : MonoBehaviour
         maxTimeRemain = 4.0f;
         level = 0;
         currentTimeRemain = maxTimeRemain;
+        score.Reset();
         SetProgress();
         AddBox();
         UpdatePosition();
@@ -70,6 +72,7 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
+        score.Save();
         SceneManager.LoadScene("GameOver");
     }
 

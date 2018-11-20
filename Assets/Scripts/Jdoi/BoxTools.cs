@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AssemblyCSharp.Assets.Scripts.Models;
+using G2048.Models;
 
 namespace Jdoi
 {
