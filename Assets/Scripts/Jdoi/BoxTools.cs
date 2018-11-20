@@ -124,5 +124,19 @@ namespace Jdoi
                 return (boxes) => this.MergeDesc(boxes, GetX, GetY, MoveY);
             }
         }
+
+        public bool IsDead(NumberBox[] boxes)
+        {
+            var hs = boxes.GroupBy(GetX).Select(g => g.OrderBy(GetY).ToArray());
+            var vs = boxes.GroupBy(GetY).Select(g => g.OrderBy(GetX).ToArray());
+
+            return !hs.Concat(vs).Any(IsMergable);
+        }
+
+        public bool IsMergable(NumberBox[] boxes)
+        {
+            return boxes.Zip(boxes.Skip(1), (a, b) => a.N == b.N).Any(a => a);
+        }
+
     }
 }

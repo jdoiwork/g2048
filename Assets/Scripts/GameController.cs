@@ -73,8 +73,11 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        score.Save();
-        SceneManager.LoadScene("GameOver");
+        if (boxTools.IsDead(boxes))
+        {
+            score.Save();
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     private void UpdatePosition()
