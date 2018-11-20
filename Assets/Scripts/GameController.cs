@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AssemblyCSharp.Assets.Scripts.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 using Jdoi.Functional;
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour
     public float currentTimeRemain;
     public float maxTimeRemain;
     public float level;
+    public float 減衰率 = 0.99f;
 
     public void OnDebugButton()
     {
@@ -68,7 +70,7 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-
+        SceneManager.LoadScene("GameOver");
     }
 
     private void UpdatePosition()
@@ -92,7 +94,7 @@ public class GameController : MonoBehaviour
         if (this.currentTimeRemain < 0)
         {
             level++;
-            maxTimeRemain *= 0.99f;
+            maxTimeRemain *= 減衰率;
             this.currentTimeRemain = maxTimeRemain;
             this.AddBox();
         }
