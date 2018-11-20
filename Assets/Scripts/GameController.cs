@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     public float maxTimeRemain;
     public float level;
     public float 減衰率 = 0.99f;
+    public float 最小猶予時間 = 0.5f;
 
     public void OnDebugButton()
     {
@@ -97,7 +98,7 @@ public class GameController : MonoBehaviour
         if (this.currentTimeRemain < 0)
         {
             level++;
-            maxTimeRemain *= 減衰率;
+            maxTimeRemain = Mathf.Max(maxTimeRemain * 減衰率, 最小猶予時間);
             this.currentTimeRemain = maxTimeRemain;
             this.AddBox();
         }
