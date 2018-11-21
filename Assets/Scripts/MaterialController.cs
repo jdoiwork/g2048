@@ -13,8 +13,17 @@ public class MaterialController : MonoBehaviour
     {
         mats = new Dictionary<ulong, Material>
         {
-            {2 , LoadMaterial("Materials/BoxMat") },
+            {2 , LoadMaterial("Materials/BoxMat2") },
             {4 , LoadMaterial("Materials/BoxMat4") },
+            {8 , LoadMaterial("Materials/BoxMat8") },
+            {16 , LoadMaterial("Materials/BoxMat16") },
+            {32 , LoadMaterial("Materials/BoxMat32") },
+            {64 , LoadMaterial("Materials/BoxMat64") },
+            {128 , LoadMaterial("Materials/BoxMat128") },
+            {256 , LoadMaterial("Materials/BoxMat256") },
+            {512 , LoadMaterial("Materials/BoxMat512") },
+            {1024 , LoadMaterial("Materials/BoxMat1024") },
+            {2048 , LoadMaterial("Materials/BoxMat2048") },
 
         };
 
