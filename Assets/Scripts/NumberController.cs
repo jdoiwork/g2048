@@ -45,17 +45,13 @@ public class NumberController : MonoBehaviour
         var r = this.GetComponent<MeshRenderer>();
         if (mats == null)
         {
-            Debug.Log("mats is NULL!!!!");
+            Debug.LogError("mats is NULL!!!!");
         }
         else
         {
             var m = mats[this.number];
-            Debug.Log("UpdateMaterial");
-            Debug.Log(r);
-            Debug.Log(r?.materials);
-            Debug.Log(m?.name);
-            r.material = m;
 
+            r.material = m;
         }
     }
 
