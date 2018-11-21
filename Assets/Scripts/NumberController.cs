@@ -9,18 +9,19 @@ public class NumberController : MonoBehaviour {
     //public GameObject gameObject;
     public const float sx = 2.0f;
     public const float sy = -2.0f;
+    private MaterialController mats;
+
+    void Awake()
+    {
+        mats = FindObjectOfType<MaterialController>();
+    }
 
     // Use this for initialization
     void Start () {
         this.SetNumberText(this.number);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void Up(){
+    public void DebugUp(){
         this.number *= 2;
         this.SetNumberText(this.number);
         this.SetPos(1, 1);
@@ -30,14 +31,29 @@ public class NumberController : MonoBehaviour {
     public NumberController SetNumberText(ulong n)
     {
         Debug.Log(string.Format("SetNumberText {0}", n));
+        this.number = n;
         text.text = n.ToString();
+        this.UpdateMaterial();
         return this;
     }
 
-    public void Double()
+    private void UpdateMaterial()
     {
-        this.number *= 2;
-        this.SetNumberText(this.number);
+        var r = this.GetComponent<MeshRenderer>();
+        if (mats == null)
+        {
+            Debug.Log("mats is NULL!!!!");
+        }
+        else
+        {
+            var m = mats[this.number];
+            Debug.Log("UpdateMaterial");
+            Debug.Log(r);
+            Debug.Log(r?.materials);
+            Debug.Log(m?.name);
+            r.material = m;
+
+        }
     }
 
     public NumberController SetPos(int x, int y)
