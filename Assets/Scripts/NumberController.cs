@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NumberController : MonoBehaviour {
+public class NumberController : MonoBehaviour
+{
 
     public TextMesh text;
     public ulong number = 2;
@@ -17,11 +18,13 @@ public class NumberController : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         this.SetNumberText(this.number);
-	}
-	
-    public void DebugUp(){
+    }
+
+    public void DebugUp()
+    {
         this.number *= 2;
         this.SetNumberText(this.number);
         this.SetPos(1, 1);

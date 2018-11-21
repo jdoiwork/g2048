@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialController : MonoBehaviour {
+public class MaterialController : MonoBehaviour
+{
     private Dictionary<ulong, Material> mats;
 
     public Material defaultMaterial;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         mats = new Dictionary<ulong, Material>
         {
             {2 , LoadMaterial("Materials/BoxMat") },
@@ -24,15 +26,12 @@ public class MaterialController : MonoBehaviour {
         Debug.Log(string.Format("LoadMaterial {0}", m?.name));
         return m;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 
     public Material this[ulong n]
     {
-        get {
+        get
+        {
             Material mat;
 
             if (mats.TryGetValue(n, out mat))
