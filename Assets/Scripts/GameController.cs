@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using Jdoi.Functional;
 using Jdoi;
+using G2048.IO;
 
 public class GameController : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class GameController : MonoBehaviour
     public float 減衰率 = 0.99f;
     public float 最小猶予時間 = 0.5f;
 
+    private UserAction[] actions;
+
     public void OnDebugButton()
     {
         //AddBox();
@@ -36,9 +39,17 @@ public class GameController : MonoBehaviour
     void Start()
     {
         boxTools = new BoxTools(0, 3, (box) => score.Plus(box.N));
+        actions = new[] {
+            UserActionFactory.Left(boxTools.MergeLeft),
+            UserActionFactory.Right(boxTools.MergeRight),
+            UserActionFactory.Up(boxTools.MergeUp),
+            UserActionFactory.Down(boxTools.MergeDown),
+        };
+
         maxTimeRemain = 4.0f;
         level = 0;
         currentTimeRemain = maxTimeRemain;
+
         score.Reset();
         SetProgress();
         AddBox();
@@ -111,22 +122,20 @@ public class GameController : MonoBehaviour
             this.AddBox();
         }
 
-
-        var inputs = new[] {
-            new { Code = KeyCode.LeftArrow,  Merge = boxTools.MergeLeft },
-            new { Code = KeyCode.RightArrow, Merge = boxTools.MergeRight },
-            new { Code = KeyCode.UpArrow,    Merge = boxTools.MergeUp },
-            new { Code = KeyCode.DownArrow,  Merge = boxTools.MergeDown },
-        };
-
-        var newBoxes =
-            inputs.Where(input => Input.GetKeyDown(input.Code))
-                  .Aggregate(boxes, (bs, input) => input.Merge(bs));
+        var newBoxes = NextBoxes();
 
         if (newBoxes != boxes)
         {
             boxes = newBoxes;
             UpdatePosition();
         }
+    }
+
+    private NumberBox[] NextBoxes()
+    {
+        return
+            actions
+                .Where(action => action.Input.HasOccured())
+                .Aggregate(boxes, (bs, action) => action.Merge(bs));
     }
 }
