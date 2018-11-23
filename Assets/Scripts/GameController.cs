@@ -45,14 +45,6 @@ public class GameController : MonoBehaviour
         UpdatePosition();
     }
 
-    private int flickCount = 0;
-
-    void FlickGesture_Flicked(object sender, EventArgs e)
-    {
-        Debug.LogFormat("flick {0}", flickCount++);
-    }
-
-
     private void SetProgress()
     {
         this.progress.BarValue = currentTimeRemain / maxTimeRemain * 100;
