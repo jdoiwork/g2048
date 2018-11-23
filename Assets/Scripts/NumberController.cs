@@ -33,7 +33,7 @@ public class NumberController : MonoBehaviour
 
     public NumberController SetNumberText(ulong n)
     {
-        Debug.Log(string.Format("SetNumberText {0}", n));
+        //Debug.Log(string.Format("SetNumberText {0}", n));
         this.number = n;
         text.text = n.ToString();
         this.UpdateMaterial();

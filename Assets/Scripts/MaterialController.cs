@@ -9,7 +9,7 @@ public class MaterialController : MonoBehaviour
     public Material defaultMaterial;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         mats = new Dictionary<ulong, Material>
         {

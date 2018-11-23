@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using Jdoi.Functional;
 using Jdoi;
+using TouchScript.Gestures;
 
 public class GameController : MonoBehaviour
 {
@@ -24,11 +25,13 @@ public class GameController : MonoBehaviour
     public float 減衰率 = 0.99f;
     public float 最小猶予時間 = 0.5f;
 
+    public FlickGesture flickGesture;
+
     public void OnDebugButton()
     {
         //AddBox();
         //UpdatePosition();
-        GameOver();
+        GameOverWithForce(true);
         Debug.Log("hello debug button");
     }
 
@@ -43,7 +46,17 @@ public class GameController : MonoBehaviour
         SetProgress();
         AddBox();
         UpdatePosition();
+
+        flickGesture.Flicked += FlickGesture_Flicked;
     }
+
+    private int flickCount = 0;
+
+    void FlickGesture_Flicked(object sender, EventArgs e)
+    {
+        Debug.LogFormat("flick {0}", flickCount++);
+    }
+
 
     private void SetProgress()
     {
@@ -73,7 +86,12 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        if (boxTools.IsDead(boxes))
+        GameOverWithForce(false);
+    }
+
+    private void GameOverWithForce(bool force)
+    {
+        if (boxTools.IsDead(boxes) || force)
         {
             score.Save();
             SceneManager.LoadScene("GameOver");
