@@ -45,8 +45,22 @@ namespace G2048.IO
             }
             else
             {
-                var p = Input.mousePosition;
-                var d = state.LastMousePosition - p;
+                return UpdateInPressedOnMove(state);
+            }
+        }
+
+        private static MouseState UpdateInPressedOnMove(MouseState state)
+        {
+            var p = Input.mousePosition;
+            var d = state.LastMousePosition - p;
+            var margin = 1600;
+
+            if (d.sqrMagnitude < margin)
+            {
+                return state;
+            }
+            else
+            {
                 var h = Mathf.Abs(d.x) > Mathf.Abs(d.y);
                 var v = !h;
 
@@ -66,7 +80,9 @@ namespace G2048.IO
             if (Input.GetMouseButtonDown(mouseButtonNo))
             {
                 //Debug.Log("mouse down");
-                return new MouseState(UpdateInPressed);
+                return new MouseState(UpdateInPressed) {
+                    LastMousePosition = Input.mousePosition,
+                };
             }
             else
             {
