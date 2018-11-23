@@ -7,7 +7,6 @@ using System;
 using System.Linq;
 using Jdoi.Functional;
 using Jdoi;
-using TouchScript.Gestures;
 
 public class GameController : MonoBehaviour
 {
@@ -24,8 +23,6 @@ public class GameController : MonoBehaviour
     public float level;
     public float 減衰率 = 0.99f;
     public float 最小猶予時間 = 0.5f;
-
-    public FlickGesture flickGesture;
 
     public void OnDebugButton()
     {
@@ -46,8 +43,6 @@ public class GameController : MonoBehaviour
         SetProgress();
         AddBox();
         UpdatePosition();
-
-        flickGesture.Flicked += FlickGesture_Flicked;
     }
 
     private int flickCount = 0;
