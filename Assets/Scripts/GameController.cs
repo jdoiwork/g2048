@@ -122,6 +122,8 @@ public class GameController : MonoBehaviour
             this.AddBox();
         }
 
+        MouseState.UpdateCurrent();
+
         var newBoxes = NextBoxes();
 
         if (newBoxes != boxes)
