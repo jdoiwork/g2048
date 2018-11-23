@@ -47,11 +47,16 @@ namespace G2048.IO
             {
                 var p = Input.mousePosition;
                 var d = state.LastMousePosition - p;
+                var h = Mathf.Abs(d.x) > Mathf.Abs(d.y);
+                var v = !h;
 
                 return new MouseState(UpdateInPressed)
                 {
                     LastMousePosition = p,
-                    FlickLeft = d.x > 0,
+                    FlickLeft  = h && d.x > 0,
+                    FlickRight = h && d.x < 0,
+                    FlickDown  = v && d.y > 0,
+                    FlickUp    = v && d.y < 0,
                 };
             }
         }
@@ -81,6 +86,21 @@ namespace G2048.IO
         }
 
         public bool FlickLeft
+        {
+            get; private set;
+        }
+
+        public bool FlickRight
+        {
+            get; private set;
+        }
+
+        public bool FlickUp
+        {
+            get; private set;
+        }
+
+        public bool FlickDown
         {
             get; private set;
         }

@@ -8,7 +8,8 @@ namespace G2048.IO.UserInputs
     {
         public bool HasOccured()
         {
-            return Input.GetKeyDown(KeyCode.RightArrow);
+            return Input.GetKeyDown(KeyCode.RightArrow) ||
+                        MouseState.Current.FlickRight;
         }
     }
 }
