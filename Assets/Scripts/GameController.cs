@@ -116,16 +116,21 @@ public class GameController : MonoBehaviour
         viewBoxes = viewBoxes.Take(len).ToArray();
     }
 
+    public void RequestNext()
+    {
+        level++;
+        maxTimeRemain = Mathf.Max(maxTimeRemain * 減衰率, 最小猶予時間);
+        ResetTimer();
+        this.AddBox();
+    }
+
     void Update()
     {
         this.currentTimeRemain -= Time.deltaTime;
         this.SetProgress();
         if (this.currentTimeRemain < 0)
         {
-            level++;
-            maxTimeRemain = Mathf.Max(maxTimeRemain * 減衰率, 最小猶予時間);
-            ResetTimer();
-            this.AddBox();
+            RequestNext();
         }
 
         MouseState.UpdateCurrent();
