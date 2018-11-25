@@ -138,5 +138,22 @@ namespace Jdoi
             return boxes.Zip(boxes.Skip(1), (a, b) => a.N == b.N).Any(a => a);
         }
 
+        public NumberBox[] Bomb(NumberBox[] boxes)
+        {
+            var newBoxes = boxes
+                .OrderByDescending(b => b.N)
+                .Zip(BombPositions(), (b, p) => b.MoveX(p.X).MoveY(p.Y));
+            return newBoxes.ToArray();
+        }
+
+        public IEnumerable<Pos> BombPositions()
+        {
+            var r = Enumerable.Range(0, 4);
+            var query = from y in r
+                        from x in (y % 2 == 0 ? r : r.Reverse())
+                        select new Pos(x, y);
+            return query;
+        }
+
     }
 }

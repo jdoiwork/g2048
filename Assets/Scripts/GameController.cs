@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     public float 減衰率 = 0.99f;
     public float 最小猶予時間 = 0.5f;
 
+
     private UserAction[] actions;
 
     public void OnDebugButton()
@@ -46,7 +47,7 @@ public class GameController : MonoBehaviour
             UserActionFactory.Down(boxTools.MergeDown),
         };
 
-        maxTimeRemain = 4.0f;
+        SetDefaultMaxTimeRemain();
         level = 0;
         ResetTimer();
 
@@ -54,6 +55,11 @@ public class GameController : MonoBehaviour
         SetProgress();
         AddBox();
         UpdatePosition();
+    }
+
+    private void SetDefaultMaxTimeRemain()
+    {
+        maxTimeRemain = 4.0f;
     }
 
     private void OnBoxMerged(NumberBox box)
@@ -126,7 +132,14 @@ public class GameController : MonoBehaviour
 
     public void RequestBomb()
     {
-        Debug.Log("bomb");
+        if (score.IsBombEnabed())
+        {
+            boxes = boxTools.Bomb(boxes);
+            UpdatePosition();
+            score.Bomb();
+            SetDefaultMaxTimeRemain();
+            Debug.Log("bomb");
+        }
     }
 
     void Update()
