@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        boxTools = new BoxTools(0, 3, (box) => score.Plus(box.N));
+        boxTools = new BoxTools(0, 3, this.OnBoxMerged);
         actions = new[] {
             UserActionFactory.Left(boxTools.MergeLeft),
             UserActionFactory.Right(boxTools.MergeRight),
@@ -48,12 +48,18 @@ public class GameController : MonoBehaviour
 
         maxTimeRemain = 4.0f;
         level = 0;
-        currentTimeRemain = maxTimeRemain;
+        ResetTimer();
 
         score.Reset();
         SetProgress();
         AddBox();
         UpdatePosition();
+    }
+
+    private void OnBoxMerged(NumberBox box)
+    {
+        score.Plus(box.N);
+        ResetTimer();
     }
 
     private void SetProgress()
@@ -118,7 +124,7 @@ public class GameController : MonoBehaviour
         {
             level++;
             maxTimeRemain = Mathf.Max(maxTimeRemain * 減衰率, 最小猶予時間);
-            this.currentTimeRemain = maxTimeRemain;
+            ResetTimer();
             this.AddBox();
         }
 
@@ -131,6 +137,11 @@ public class GameController : MonoBehaviour
             boxes = newBoxes;
             UpdatePosition();
         }
+    }
+
+    private void ResetTimer()
+    {
+        this.currentTimeRemain = maxTimeRemain;
     }
 
     private NumberBox[] NextBoxes()
