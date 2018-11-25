@@ -124,6 +124,11 @@ public class GameController : MonoBehaviour
         this.AddBox();
     }
 
+    public void RequestBomb()
+    {
+        Debug.Log("bomb");
+    }
+
     void Update()
     {
         this.currentTimeRemain -= Time.deltaTime;
