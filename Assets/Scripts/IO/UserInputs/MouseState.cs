@@ -53,7 +53,7 @@ namespace G2048.IO
         {
             var p = Input.mousePosition;
             var d = state.LastMousePosition - p;
-            var margin = 1600;
+            var margin = 2500;
 
             if (d.sqrMagnitude < margin)
             {
