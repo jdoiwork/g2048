@@ -164,9 +164,10 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 1
-    functionName: MyAnime
+    functionName: OnAnimeFinished
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: bed26fb4a3f7c44a5aafe8a604b583d3,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

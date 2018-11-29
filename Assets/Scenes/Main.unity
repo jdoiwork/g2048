@@ -947,7 +947,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 499044550}
   progress: {fileID: 784058530}
-  prefab: {fileID: 1799152562823608, guid: d23038a7d595f4a45975f18789633fab, type: 2}
+  boxPrefab: {fileID: 1799152562823608, guid: d23038a7d595f4a45975f18789633fab, type: 2}
+  pointPrefab: {fileID: 1593805579306804, guid: 05a01770df5304ab487973257e1520a4,
+    type: 2}
+  pointsObject: {fileID: 311680841}
+  camera: {fileID: 534669904}
   currentTimeRemain: 0
   maxTimeRemain: 0
   level: 0

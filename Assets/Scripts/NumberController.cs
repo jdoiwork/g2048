@@ -58,8 +58,13 @@ public class NumberController : MonoBehaviour
     public NumberController SetPos(int x, int y)
     {
         var t = this.gameObject.transform;
-        t.position = new Vector3(-3f + sx * x, t.position.y, 3f + sy * y);
+        t.position = CalcPos(x, y, t.position.y);
 
         return this;
+    }
+
+    public static Vector3 CalcPos(int x, int y, float h)
+    {
+        return new Vector3(-3f + sx * x, h, 3f + sy * y);
     }
 }

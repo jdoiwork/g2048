@@ -16,7 +16,10 @@ public class GameController : MonoBehaviour
     public ScoreController score;
     public ProgressBarCircle progress;
 
-    public GameObject prefab;
+    public GameObject boxPrefab;
+    public GameObject pointPrefab;
+    public GameObject pointsObject;
+    public Camera camera;
 
     public BoxTools boxTools;
     public float currentTimeRemain;
@@ -64,8 +67,18 @@ public class GameController : MonoBehaviour
 
     private void OnBoxMerged(NumberBox box)
     {
+        CreatePointChunk(box);
         score.Plus(box.N);
         ResetTimer();
+    }
+
+    private void CreatePointChunk(NumberBox box)
+    {
+        var point = Instantiate<GameObject>(pointPrefab, pointsObject.transform);
+        var pointText = point.GetComponentInChildren<PointController>();
+        var trans = point.GetComponent<RectTransform>();
+        trans.position = RectTransformUtility.WorldToScreenPoint(this.camera, NumberController.CalcPos(box.X, box.Y, 0));
+        pointText.Point = box.N;
     }
 
     private void SetProgress()
@@ -84,7 +97,7 @@ public class GameController : MonoBehaviour
         var pos = pts[idx];
         var box = new NumberBox(pos.X, pos.Y);
 
-        var newViewBox = Instantiate(prefab).GetComponent<NumberController>();
+        var newViewBox = Instantiate(boxPrefab).GetComponent<NumberController>();
         newViewBox.SetPos(pos.X, pos.Y);
 
         boxes = box.Cons(boxes).ToArray();

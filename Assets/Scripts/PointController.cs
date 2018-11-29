@@ -29,7 +29,7 @@ public class PointController : MonoBehaviour {
 		
 	}
 
-    public void MyAnime()
+    public void DestroyGameObject()
     {
         Destroy(this.gameObject);
         Debug.Log("anime");
