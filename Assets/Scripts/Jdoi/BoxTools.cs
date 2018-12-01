@@ -155,5 +155,19 @@ namespace Jdoi
             return query;
         }
 
+        public int RandomBetweenZeroToLessThan(int n)
+        {
+            return UnityEngine.Random.Range(0, n - 1);
+        }
+
+        public int RandomIndex<T>(T[] xs)
+        {
+            return RandomBetweenZeroToLessThan(xs.Length);
+        }
+
+        public T RandomElement<T>(T[] xs)
+        {
+            return xs[RandomIndex(xs)];
+        }
     }
 }

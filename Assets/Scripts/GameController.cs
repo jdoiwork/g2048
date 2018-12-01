@@ -19,15 +19,15 @@ public class GameController : MonoBehaviour
     public GameObject boxPrefab;
     public GameObject pointPrefab;
     public GameObject pointsObject;
+
+    // TODO: fix warning
     public Camera camera;
 
     public BoxTools boxTools;
     public float currentTimeRemain;
     public float maxTimeRemain;
     public float level;
-    public float 減衰率 = 0.99f;
-    public float 最小猶予時間 = 0.5f;
-
+    public GameConfig gameConfig;
 
     private UserAction[] actions;
 
@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
             UserActionFactory.Up(boxTools.MergeUp),
             UserActionFactory.Down(boxTools.MergeDown),
         };
-
+        gameConfig = GameConfigTools.Easy;
         SetDefaultMaxTimeRemain();
         level = 0;
         ResetTimer();
@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
 
     private void SetDefaultMaxTimeRemain()
     {
-        maxTimeRemain = 4.0f;
+        maxTimeRemain = gameConfig.MaxCoolTime;
     }
 
     private void OnBoxMerged(NumberBox box)
@@ -93,12 +93,12 @@ public class GameController : MonoBehaviour
 
     private void CreateBox(Pos[] pts)
     {
-        var idx = UnityEngine.Random.Range(0, pts.Length - 1);
-        var pos = pts[idx];
-        var box = new NumberBox(pos.X, pos.Y);
+        var pos = boxTools.RandomElement(pts);
+        var num = boxTools.RandomElement(gameConfig.NumberRange);
+        var box = new NumberBox(pos.X, pos.Y, num);
 
         var newViewBox = Instantiate(boxPrefab).GetComponent<NumberController>();
-        newViewBox.SetPos(pos.X, pos.Y);
+        newViewBox.SetPos(pos.X, pos.Y).SetNumberText(num);
 
         boxes = box.Cons(boxes).ToArray();
         viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
@@ -138,7 +138,7 @@ public class GameController : MonoBehaviour
     public void RequestNext()
     {
         level++;
-        maxTimeRemain = Mathf.Max(maxTimeRemain * 減衰率, 最小猶予時間);
+        maxTimeRemain = Mathf.Max(maxTimeRemain * gameConfig.DecayRate, gameConfig.MinCoolTime);
         ResetTimer();
         this.AddBox();
     }
