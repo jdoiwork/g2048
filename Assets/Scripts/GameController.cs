@@ -49,9 +49,16 @@ public class GameController : MonoBehaviour
             UserActionFactory.Up(boxTools.MergeUp),
             UserActionFactory.Down(boxTools.MergeDown),
         };
+
         gameConfig = GameConfigTools.Easy;
         gameConfig = GameConfigTools.Normal;
         //gameConfig = GameConfigTools.Hard;
+
+        //foreach (var item in gameConfig.NumberRange)
+        //{
+        //    Debug.Log(item);
+        //}
+
         SetDefaultMaxTimeRemain();
         level = 0;
         ResetTimer();
@@ -70,8 +77,18 @@ public class GameController : MonoBehaviour
     private void OnBoxMerged(NumberBox box)
     {
         CreatePointChunk(box);
-        score.Plus(box.N);
+        PlusScore(box);
         ResetTimer();
+    }
+
+    private void PlusScore(NumberBox box)
+    {
+        score.Plus(CalcScore(box));
+    }
+
+    private ulong CalcScore(NumberBox box)
+    {
+        return box.N * gameConfig.ScoreScale;
     }
 
     private void CreatePointChunk(NumberBox box)
@@ -80,7 +97,7 @@ public class GameController : MonoBehaviour
         var pointText = point.GetComponentInChildren<PointController>();
         var trans = point.GetComponent<RectTransform>();
         trans.position = RectTransformUtility.WorldToScreenPoint(this.camera, NumberController.CalcPos(box.X, box.Y, 0));
-        pointText.Point = box.N;
+        pointText.Point = CalcScore(box);
     }
 
     private void SetProgress()
@@ -105,8 +122,7 @@ public class GameController : MonoBehaviour
         boxes = box.Cons(boxes).ToArray();
         viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
 
-        score.Plus(box.N);
-
+        PlusScore(box);
     }
 
     private void GameOver()

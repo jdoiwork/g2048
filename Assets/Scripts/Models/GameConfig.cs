@@ -38,5 +38,14 @@ namespace G2048.Models
             get;
             set;
         }
+
+        /// <summary>
+        /// スコアのボーナス係数
+        /// </summary>
+        public ulong ScoreScale
+        {
+            get;
+            set;
+        }
     }
 }
