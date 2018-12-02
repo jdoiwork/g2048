@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
 
         gameConfig = GameConfigTools.Easy;
         gameConfig = GameConfigTools.Normal;
-        //gameConfig = GameConfigTools.Hard;
+        gameConfig = GameConfigTools.Hard;
 
         //foreach (var item in gameConfig.NumberRange)
         //{
@@ -88,7 +88,8 @@ public class GameController : MonoBehaviour
 
     private ulong CalcScore(NumberBox box)
     {
-        return box.N * gameConfig.ScoreScale;
+        var full = boxes.Length == 16 ? gameConfig.FullScoreScale : 1;
+        return box.N * gameConfig.ScoreScale * full;
     }
 
     private void CreatePointChunk(NumberBox box)

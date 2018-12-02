@@ -27,6 +27,7 @@ namespace Jdoi
             MinCoolTime = 0.5f,
             MaxCoolTime = 4.0f,
             ScoreScale = 1,
+            FullScoreScale = 16,
         };
         public static GameConfig Normal
         {
@@ -38,6 +39,7 @@ namespace Jdoi
             MinCoolTime = 0.25f,
             MaxCoolTime = 3.0f,
             ScoreScale = 2,
+            FullScoreScale = 32,
         };
 
         public static GameConfig Hard
@@ -50,6 +52,7 @@ namespace Jdoi
             MinCoolTime = 0.1f,
             MaxCoolTime = 2.0f,
             ScoreScale = 4,
+            FullScoreScale = 64,
         };
 
     }

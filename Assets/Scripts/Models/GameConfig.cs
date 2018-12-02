@@ -47,5 +47,14 @@ namespace G2048.Models
             get;
             set;
         }
+
+        /// <summary>
+        /// 箱がすべて埋まっている場合のボーナス係数
+        /// </summary>
+        public ulong FullScoreScale
+        {
+            get;
+            set;
+        }
     }
 }
