@@ -25,5 +25,27 @@ namespace Jdoi
             MinCoolTime = 0.5f,
             MaxCoolTime = 4.0f,
         };
+        public static GameConfig Normal
+        {
+            get;
+        } = new GameConfig
+        {
+            NumberRange = CreateRange(2),
+            DecayRate = 0.98f,
+            MinCoolTime = 0.25f,
+            MaxCoolTime = 2.0f,
+        };
+
+        public static GameConfig Hard
+        {
+            get;
+        } = new GameConfig
+        {
+            NumberRange = CreateRange(3),
+            DecayRate = 0.95f,
+            MinCoolTime = 0.1f,
+            MaxCoolTime = 2.0f,
+        };
+
     }
 }

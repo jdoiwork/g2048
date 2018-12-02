@@ -50,6 +50,8 @@ public class GameController : MonoBehaviour
             UserActionFactory.Down(boxTools.MergeDown),
         };
         gameConfig = GameConfigTools.Easy;
+        gameConfig = GameConfigTools.Normal;
+        //gameConfig = GameConfigTools.Hard;
         SetDefaultMaxTimeRemain();
         level = 0;
         ResetTimer();
