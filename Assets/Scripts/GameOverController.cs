@@ -20,4 +20,10 @@ public class GameOverController : MonoBehaviour {
         Debug.Log("restart");
         SceneManager.LoadScene("Main");
     }
+
+    public void BackToTitle()
+    {
+        Debug.Log("title");
+        SceneManager.LoadScene("Title");
+    }
 }
