@@ -951,12 +951,10 @@ MonoBehaviour:
   pointPrefab: {fileID: 1593805579306804, guid: 05a01770df5304ab487973257e1520a4,
     type: 2}
   pointsObject: {fileID: 311680841}
-  camera: {fileID: 534669904}
+  mainCamera: {fileID: 534669904}
   currentTimeRemain: 0
   maxTimeRemain: 0
   level: 0
-  "\u6E1B\u8870\u7387": 0.99
-  "\u6700\u5C0F\u7336\u4E88\u6642\u9593": 0.5
 --- !u!114 &854514386
 MonoBehaviour:
   m_ObjectHideFlags: 0

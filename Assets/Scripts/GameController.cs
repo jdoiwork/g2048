@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     public GameObject pointsObject;
 
     // TODO: fix warning
-    public Camera camera;
+    public Camera mainCamera;
 
     public BoxTools boxTools;
     public float currentTimeRemain;
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
         var point = Instantiate<GameObject>(pointPrefab, pointsObject.transform);
         var pointText = point.GetComponentInChildren<PointController>();
         var trans = point.GetComponent<RectTransform>();
-        trans.position = RectTransformUtility.WorldToScreenPoint(this.camera, NumberController.CalcPos(box.X, box.Y, 0));
+        trans.position = RectTransformUtility.WorldToScreenPoint(this.mainCamera, NumberController.CalcPos(box.X, box.Y, 0));
         pointText.Point = CalcScore(box);
     }
 
@@ -107,8 +107,8 @@ public class GameController : MonoBehaviour
 
     private void CreateBox(Pos[] pts)
     {
-        var pos = boxTools.RandomElement(pts);
-        var num = boxTools.RandomElement(gameConfig.NumberRange);
+        var pos = RandomTools.RandomElement(pts);
+        var num = RandomTools.RandomElement(gameConfig.NumberRange);
         var box = new NumberBox(pos.X, pos.Y, num);
 
         var newViewBox = Instantiate(boxPrefab).GetComponent<NumberController>();

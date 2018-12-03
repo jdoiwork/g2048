@@ -154,20 +154,5 @@ namespace G2048.Tools
                         select new Pos(x, y);
             return query;
         }
-
-        public int RandomBetweenZeroToLessThan(int n)
-        {
-            return UnityEngine.Random.Range(0, n);
-        }
-
-        public int RandomIndex<T>(T[] xs)
-        {
-            return RandomBetweenZeroToLessThan(xs.Length);
-        }
-
-        public T RandomElement<T>(T[] xs)
-        {
-            return xs[RandomIndex(xs)];
-        }
     }
 }
