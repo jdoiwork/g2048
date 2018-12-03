@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
             UserActionFactory.Down(boxTools.MergeDown),
         };
 
+
         gameConfig = GameConfigTools.Difficulty2Config(GameState.Current.Difficulty);
 
         SetDefaultMaxTimeRemain();
