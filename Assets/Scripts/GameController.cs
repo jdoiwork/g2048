@@ -50,9 +50,11 @@ public class GameController : MonoBehaviour
             UserActionFactory.Down(boxTools.MergeDown),
         };
 
-        gameConfig = GameConfigTools.Easy;
-        gameConfig = GameConfigTools.Normal;
-        gameConfig = GameConfigTools.Hard;
+        gameConfig = GameConfigTools.Difficulty2Config(GameState.Current.Difficulty);
+
+        //gameConfig = GameConfigTools.Easy;
+        //gameConfig = GameConfigTools.Normal;
+        //gameConfig = GameConfigTools.Hard;
 
         //foreach (var item in gameConfig.NumberRange)
         //{

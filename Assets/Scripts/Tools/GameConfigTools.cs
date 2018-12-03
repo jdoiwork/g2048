@@ -63,5 +63,17 @@ namespace G2048.Tools
             GameDifficulty.Normal,
             GameDifficulty.Hard,
         };
+
+        public static GameConfig Difficulty2Config(GameDifficulty gameDifficulty)
+        {
+            switch (gameDifficulty)
+            {
+                case GameDifficulty.Easy: return Easy;
+                case GameDifficulty.Normal: return Normal;
+                case GameDifficulty.Hard: return Hard;
+                default: throw new NotImplementedException();
+
+            }
+        }
     }
 }

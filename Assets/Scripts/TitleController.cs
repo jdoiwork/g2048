@@ -11,7 +11,7 @@ using System;
 
 public class TitleController : MonoBehaviour
 {
-
+    public string nextScene = "Main"; 
     public Dropdown dropdown;
 
     // Use this for initialization
@@ -50,7 +50,7 @@ public class TitleController : MonoBehaviour
 
     private void LoadMainScene()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene(nextScene);
     }
 
     private void UpdateCurrentDifficulty()
