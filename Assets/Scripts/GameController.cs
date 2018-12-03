@@ -52,15 +52,6 @@ public class GameController : MonoBehaviour
 
         gameConfig = GameConfigTools.Difficulty2Config(GameState.Current.Difficulty);
 
-        //gameConfig = GameConfigTools.Easy;
-        //gameConfig = GameConfigTools.Normal;
-        //gameConfig = GameConfigTools.Hard;
-
-        foreach (var item in gameConfig.NumberRange)
-        {
-            Debug.Log(item);
-        }
-
         SetDefaultMaxTimeRemain();
         level = 0;
         ResetTimer();
