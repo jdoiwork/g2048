@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 using G2048.Tools;
@@ -12,7 +12,7 @@ using System;
 public class TitleController : MonoBehaviour
 {
     public string nextScene = "Main"; 
-    public Dropdown dropdown;
+    public TMP_Dropdown dropdown;
 
     // Use this for initialization
     void Start()
