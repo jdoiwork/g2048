@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 using G2048.Tools;
 using G2048.Models;
+using System;
 
 public class TitleController : MonoBehaviour
 {
@@ -38,5 +40,21 @@ public class TitleController : MonoBehaviour
 
             return gd;
         }
+    }
+
+    public void OnStartPressed()
+    {
+        UpdateCurrentDifficulty();
+        LoadMainScene();
+    }
+
+    private void LoadMainScene()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    private void UpdateCurrentDifficulty()
+    {
+        GameState.Current.Difficulty = this.GameDifficulty;
     }
 }
