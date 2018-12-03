@@ -55,5 +55,13 @@ namespace Jdoi
             FullScoreScale = 64,
         };
 
+        public static GameDifficulty[] GameDifficulties
+        {
+            get;
+        } = new[] {
+            GameDifficulty.Easy,
+            GameDifficulty.Normal,
+            GameDifficulty.Hard,
+        };
     }
 }
