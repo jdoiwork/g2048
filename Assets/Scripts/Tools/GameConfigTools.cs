@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using G2048.Models;
 
-namespace Jdoi
+namespace G2048.Tools
 {
     public static class GameConfigTools
     {

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Jdoi;
 using UnityEngine;
 using UnityEngine.UI;
+
+using G2048.Tools;
 
 public class TitleController : MonoBehaviour {
 

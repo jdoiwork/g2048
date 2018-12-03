@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 using Jdoi.Functional;
-using Jdoi;
 using G2048.IO;
+using G2048.Tools;
 
 public class GameController : MonoBehaviour
 {
