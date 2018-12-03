@@ -157,7 +157,7 @@ namespace G2048.Tools
 
         public int RandomBetweenZeroToLessThan(int n)
         {
-            return UnityEngine.Random.Range(0, n - 1);
+            return UnityEngine.Random.Range(0, n);
         }
 
         public int RandomIndex<T>(T[] xs)

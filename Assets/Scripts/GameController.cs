@@ -56,10 +56,10 @@ public class GameController : MonoBehaviour
         //gameConfig = GameConfigTools.Normal;
         //gameConfig = GameConfigTools.Hard;
 
-        //foreach (var item in gameConfig.NumberRange)
-        //{
-        //    Debug.Log(item);
-        //}
+        foreach (var item in gameConfig.NumberRange)
+        {
+            Debug.Log(item);
+        }
 
         SetDefaultMaxTimeRemain();
         level = 0;
