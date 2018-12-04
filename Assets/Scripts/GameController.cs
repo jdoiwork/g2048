@@ -50,14 +50,22 @@ public class GameController : MonoBehaviour
 
         gameConfig = GameConfigTools.Difficulty2Config(GameState.Current.Difficulty);
 
+        SetProgressActive(true);
+
         SetDefaultMaxTimeRemain();
-        level = 0;
         ResetTimer();
 
+        level = 0;
         score.Reset();
 
         AddBox();
         UpdatePosition();
+    }
+
+    private static void SetProgressActive(bool active)
+    {
+        GameState.SetNormalProgressActive(active);
+        GameState.SetAlertProgressActive(!active);
     }
 
     private void SetDefaultMaxTimeRemain()
@@ -69,7 +77,7 @@ public class GameController : MonoBehaviour
     {
         CreatePointChunk(box);
         PlusScore(box);
-        GameState.SetNormalProgressActive(true);
+        SetProgressActive(true);
         ResetTimer();
     }
 
@@ -111,13 +119,13 @@ public class GameController : MonoBehaviour
         viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
 
         PlusScore(box);
-        GameState.SetNormalProgressActive(true);
+        SetProgressActive(true);
         ResetTimer();
     }
 
     private void GameOver()
     {
-        GameState.SetNormalProgressActive(false);
+        SetProgressActive(false);
         GameOverWithForce(false);
     }
 

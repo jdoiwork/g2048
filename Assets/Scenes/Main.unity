@@ -903,7 +903,7 @@ GameObject:
   - component: {fileID: 642013026}
   - component: {fileID: 642013027}
   m_Layer: 5
-  m_Name: Normal Progres
+  m_Name: Normal Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -953,6 +953,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554fd975a28fd4211bfe6c12ed158e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &671750011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 671750012}
+  - component: {fileID: 671750014}
+  - component: {fileID: 671750013}
+  m_Layer: 5
+  m_Name: Alert Progress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &671750012
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 671750011}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2060373235}
+  m_Father: {fileID: 1814904978}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &671750013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 671750011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359eca3b933a24050ab4ba23f8ed47e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &671750014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 671750011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd2f86868a8d4d8795e4272b6792510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progress: {fileID: 2060373237}
+  progressObject: {fileID: 2060373234}
+  progressSource: {fileID: 671750013}
 --- !u!1 &750503476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1251,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1814904978}
+    m_TransformParent: {fileID: 671750012}
     m_Modifications:
     - target: {fileID: 224923131576229994, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
         type: 2}
@@ -1230,17 +1291,17 @@ Prefab:
     - target: {fileID: 224923131576229994, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224923131576229994, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -94
+      value: 816
       objectReference: {fileID: 0}
     - target: {fileID: 224923131576229994, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -243
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 224923131576229994, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
         type: 2}
@@ -2246,7 +2307,7 @@ RectTransform:
   - {fileID: 499044549}
   - {fileID: 447983482}
   - {fileID: 642013025}
-  - {fileID: 2060373235}
+  - {fileID: 671750012}
   - {fileID: 1295523638}
   - {fileID: 311680842}
   m_Father: {fileID: 0}
@@ -2453,8 +2514,19 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043623413}
   m_CullTransparentMesh: 0
+--- !u!1 &2060373234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1295904187628084, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
+    type: 2}
+  m_PrefabInternal: {fileID: 910801171}
 --- !u!224 &2060373235 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224923131576229994, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
     type: 2}
   m_PrefabInternal: {fileID: 910801171}
+--- !u!114 &2060373237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114501253246479570, guid: 24d5ab3d18c91fc41a2213a537e21ee7,
+    type: 2}
+  m_PrefabInternal: {fileID: 910801171}
+  m_Script: {fileID: 11500000, guid: 5ecc6f42c0212b843a7166e8c77981ec, type: 3}

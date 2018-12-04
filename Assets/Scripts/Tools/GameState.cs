@@ -66,5 +66,11 @@ namespace G2048.Tools
             Current.NormalProgress =
                 Current.NormalProgress.ModifyActive(active);
         }
+
+        public static void SetAlertProgressActive(bool active)
+        {
+            Current.AlertProgress =
+                Current.AlertProgress.ModifyActive(active);
+        }
     }
 }
