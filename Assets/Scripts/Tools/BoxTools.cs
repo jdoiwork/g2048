@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using G2048.Models;
+using G2048.Tools.Helpers;
 
 namespace G2048.Tools
 {
     public class BoxTools
     {
-        public BoxTools(int posMin, int posMax, Action<NumberBox> onDoubledBox)
+        public BoxTools(int posMin, int posMax, Action<NumberStack> onDoubledBox)
         {
             this.PosMin = posMin;
             this.PosMax = posMax;
@@ -27,7 +28,7 @@ namespace G2048.Tools
             set;
         }
 
-        public Action<NumberBox> OnDoubledBox
+        public Action<NumberStack> OnDoubledBox
         {
             get;
             set;
@@ -38,39 +39,37 @@ namespace G2048.Tools
             return
                 boxes.GroupBy(key)
                      .Select(g => g.OrderBy(getPos)
-                                   .Aggregate(new NumberBox[0], this.MergeBox)
-                                   .Select((box, i) => updatePos(box, this.PosMin + i)))
-                     .SelectMany(bs => bs)
+                                   .Aggregate(new NumberStack[0], this.MergeBox)
+                                   .Select((ns, i) => ns.ModifyBox(updatePos(ns.Box, this.PosMin + i))))
+                     .SelectMany((nss) => NumberStack.MapBoxWithAction(nss, this.OnDoubledBox))
                      .ToArray();
         }
 
-        public NumberBox[] MergeBox(NumberBox[] bs, NumberBox box)
+        public NumberStack[] MergeBox(NumberStack[] bs, NumberBox box)
         {
-            if (!bs.Any())
+            if (bs.Any() && bs.Last().Box.N == box.N)
             {
-                return bs.Append(box).ToArray();
-            }
-            else if (bs.Last().N == box.N)
-            {
-                var doubledBox = box.Double();
-                this.OnDoubledBox(doubledBox);
+                // 最後が同じなら倍プッシュ
+                var numberStack = bs.Last().Double();
 
-                return bs.Reverse().Skip(1).Reverse().Append(doubledBox).ToArray();
+                return bs.Reverse().Skip(1).Reverse().Append(numberStack).ToArray();
             }
             else
             {
-                return bs.Append(box).ToArray();
+                // それ以外なら単純に追加
+                return bs.Append(new NumberStack(box)).ToArray();
             }
         }
 
         public NumberBox[] MergeDesc(NumberBox[] boxes, Func<NumberBox, int> key, Func<NumberBox, int> getPos, Func<NumberBox, int, NumberBox> updatePos)
         {
+            //Func<NumberStack>
             return
                 boxes.GroupBy(key)
                      .Select(g => g.OrderByDescending(getPos)
-                                   .Aggregate(new NumberBox[0], this.MergeBox)
-                                   .Select((box, i) => updatePos(box, this.PosMax - i)))
-                     .SelectMany(bs => bs)
+                                   .Aggregate(new NumberStack[0], this.MergeBox)
+                                   .Select((ns, i) => ns.ModifyBox(updatePos(ns.Box, this.PosMax - i))))
+                     .SelectMany((nss) => NumberStack.MapBoxWithAction(nss, this.OnDoubledBox))
                      .ToArray();
         }
 
@@ -86,7 +85,8 @@ namespace G2048.Tools
             {
                 pointsFound(rps);
             }
-            else {
+            else
+            {
                 pointNotFound();
             }
         }
@@ -99,28 +99,32 @@ namespace G2048.Tools
 
         public Func<NumberBox[], NumberBox[]> MergeLeft
         {
-            get {
+            get
+            {
                 return (boxes) => this.MergeAsc(boxes, GetY, GetX, MoveX);
             }
         }
 
         public Func<NumberBox[], NumberBox[]> MergeRight
         {
-            get {
+            get
+            {
                 return (boxes) => this.MergeDesc(boxes, GetY, GetX, MoveX);
             }
         }
 
         public Func<NumberBox[], NumberBox[]> MergeUp
         {
-            get {
+            get
+            {
                 return (boxes) => this.MergeAsc(boxes, GetX, GetY, MoveY);
             }
         }
 
         public Func<NumberBox[], NumberBox[]> MergeDown
         {
-            get {
+            get
+            {
                 return (boxes) => this.MergeDesc(boxes, GetX, GetY, MoveY);
             }
         }

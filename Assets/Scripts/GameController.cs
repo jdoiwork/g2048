@@ -8,6 +8,7 @@ using System.Linq;
 using Jdoi.Functional;
 using G2048.IO;
 using G2048.Tools;
+using G2048.Tools.Helpers;
 
 public class GameController : MonoBehaviour
 {
@@ -72,10 +73,12 @@ public class GameController : MonoBehaviour
         GameState.SetAlertProgressMax(gameConfig.MaxAlertCoolTime);
     }
 
-    private void OnBoxMerged(NumberBox box)
+    private void OnBoxMerged(NumberStack ns)
     {
-        CreatePointChunk(box);
-        PlusScore(box);
+        //var box = ns.Box;
+        //CreatePointChunk(ns);
+        StartCoroutine(CoCreatePointChunks(ns));
+        PlusScore(ns);
         SetProgressActive(true);
         ResetTimer();
     }
@@ -85,19 +88,43 @@ public class GameController : MonoBehaviour
         score.Plus(CalcScore(box));
     }
 
-    private ulong CalcScore(NumberBox box)
+    private void PlusScore(NumberStack ns)
     {
-        var full = boxes.Length == 16 ? gameConfig.FullScoreScale : 1;
-        return box.N * gameConfig.ScoreScale * full;
+        foreach (var baseScore in ns.PlusScores)
+        {
+            score.Plus(CalcScore(baseScore));
+        }
     }
 
-    private void CreatePointChunk(NumberBox box)
+    private ulong CalcScore(NumberBox box)
+    {
+        return CalcScore(box.N);
+    }
+
+    private ulong CalcScore(ulong baseScore)
+    {
+        var full = boxes.Length == 16 ? gameConfig.FullScoreScale : 1;
+        return baseScore * gameConfig.ScoreScale * full;
+    }
+
+    private IEnumerator CoCreatePointChunks(NumberStack ns)
+    {
+        var box = ns.Box;
+        foreach (var baseScore in ns.PlusScores)
+        {
+            CreatePointChunk(box, baseScore);
+
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    private void CreatePointChunk(NumberBox box, ulong baseScore)
     {
         var point = Instantiate<GameObject>(pointPrefab, pointsObject.transform);
         var pointText = point.GetComponentInChildren<PointController>();
         var trans = point.GetComponent<RectTransform>();
         trans.position = RectTransformUtility.WorldToScreenPoint(this.mainCamera, NumberController.CalcPos(box.X, box.Y, 0));
-        pointText.Point = CalcScore(box);
+        pointText.Point = CalcScore(baseScore);
     }
 
     private void AddBox()
