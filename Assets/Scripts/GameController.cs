@@ -132,7 +132,7 @@ public class GameController : MonoBehaviour
 
     private void GameOverWithForce(bool force)
     {
-        if (boxTools.IsDead(boxes) || force)
+        if (GameState.IsOverAlertProgress() || force)
         {
             score.Save();
             SceneManager.LoadScene("GameOver");
@@ -167,6 +167,7 @@ public class GameController : MonoBehaviour
         {
             boxes = boxTools.Bomb(boxes);
             UpdatePosition();
+            ResetTimer();
             score.Bomb();
             SetDefaultMaxTimeRemain();
             Debug.Log("bomb");
@@ -182,6 +183,7 @@ public class GameController : MonoBehaviour
         else
         {
             GameState.ReduceAlertProgress(Time.deltaTime);
+            GameOver();
         }
 
         if (GameState.IsOverNormalProgress() &&

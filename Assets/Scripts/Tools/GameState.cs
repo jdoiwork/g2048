@@ -60,6 +60,11 @@ namespace G2048.Tools
             return Current.NormalProgress.Remain < 0;
         }
 
+        public static bool IsOverAlertProgress()
+        {
+            return Current.AlertProgress.Remain < 0;
+        }
+
         public static void ResetNormalProgress()
         {
             SetNormalProgress(Current.NormalProgress.Max);
