@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using G2048.Models;
+using G2048.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,12 +10,16 @@ public class ScoreController : MonoBehaviour {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI bombCostText;
     public Button bombButton;
+    public GameConfig gameConfig;
 
     public ulong score = 0;
     public ulong bombCost = 2;
 
     void Start()
     {
+        gameConfig = GameConfigTools.Difficulty2Config(GameState.Current.Difficulty);
+        bombCost = gameConfig.InitialBombCost;
+
         SetBombCost(bombCost);
     }
 
@@ -35,7 +40,7 @@ public class ScoreController : MonoBehaviour {
     {
         this.score -= bombCost;
         SetScore(this.score);
-        bombCost *= 2;
+        bombCost *= gameConfig.BombCostScale;
         SetBombCost(bombCost);
     }
 
