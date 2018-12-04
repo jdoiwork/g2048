@@ -11,10 +11,16 @@ namespace G2048.Tools
             set;
         }
 
+        public Timer NormalProgress { get; set; }
+        public Timer AlertProgress { get; set; }
+
         public static GameState Current
         {
             get;
             set;
-        } = new GameState();
+        } = new GameState {
+            NormalProgress = new Timer(),
+            AlertProgress = new Timer(),
+        };
     }
 }
