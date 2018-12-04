@@ -29,6 +29,8 @@ namespace G2048.Tools
             MaxAlertCoolTime = 16.0f,
             ScoreScale = 1,
             FullScoreScale = 4,
+            InitialBombCost = 2,
+            BombCostScale = 2,
         };
         public static GameConfig Normal
         {
@@ -42,6 +44,8 @@ namespace G2048.Tools
             MaxAlertCoolTime = 8.0f,
             ScoreScale = 2,
             FullScoreScale = 8,
+            InitialBombCost = 4,
+            BombCostScale = 4,
         };
 
         public static GameConfig Hard
@@ -56,6 +60,8 @@ namespace G2048.Tools
             MaxAlertCoolTime = 4.0f,
             ScoreScale = 4,
             FullScoreScale = 16,
+            InitialBombCost = 8,
+            BombCostScale = 8,
         };
 
         public static GameDifficulty[] GameDifficulties

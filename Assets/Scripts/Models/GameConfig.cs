@@ -62,5 +62,16 @@ namespace G2048.Models
             get;
             set;
         }
+
+        /// <summary>
+        /// 初期ボムコスト
+        /// </summary>
+        public ulong InitialBombCost { get; set; }
+
+        /// <summary>
+        /// ボム使用時のコスト係数
+        /// </summary>
+        public ulong BombCostScale { get; set; }
+
     }
 }
