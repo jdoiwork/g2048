@@ -69,6 +69,7 @@ public class GameController : MonoBehaviour
     {
         CreatePointChunk(box);
         PlusScore(box);
+        GameState.SetNormalProgressActive(true);
         ResetTimer();
     }
 
@@ -110,12 +111,13 @@ public class GameController : MonoBehaviour
         viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
 
         PlusScore(box);
-
+        GameState.SetNormalProgressActive(true);
         ResetTimer();
     }
 
     private void GameOver()
     {
+        GameState.SetNormalProgressActive(false);
         GameOverWithForce(false);
     }
 
@@ -166,7 +168,8 @@ public class GameController : MonoBehaviour
     {
         GameState.ReduceNormalProgress(Time.deltaTime);
 
-        if (GameState.IsOverNormalProgress())
+        if (GameState.IsOverNormalProgress() &&
+            GameState.Current.NormalProgress.Active)
         {
             RequestNext();
         }

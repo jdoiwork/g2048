@@ -60,5 +60,11 @@ namespace G2048.Tools
             Current.NormalProgress =
                 Current.NormalProgress.ModifyRemain(time);
         }
+
+        public static void SetNormalProgressActive(bool active)
+        {
+            Current.NormalProgress =
+                Current.NormalProgress.ModifyActive(active);
+        }
     }
 }

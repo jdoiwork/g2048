@@ -901,6 +901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 642013025}
   - component: {fileID: 642013026}
+  - component: {fileID: 642013027}
   m_Layer: 5
   m_Name: Normal Progres
   m_TagString: Untagged
@@ -940,6 +941,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progress: {fileID: 784058530}
   progressObject: {fileID: 35200629}
+  progressSource: {fileID: 642013027}
+--- !u!114 &642013027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 642013024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554fd975a28fd4211bfe6c12ed158e0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &750503476
 GameObject:
   m_ObjectHideFlags: 0
