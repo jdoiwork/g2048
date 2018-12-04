@@ -20,12 +20,10 @@ public class GameController : MonoBehaviour
     public GameObject pointPrefab;
     public GameObject pointsObject;
 
-    // TODO: fix warning
     public Camera mainCamera;
 
     public BoxTools boxTools;
-    public float currentTimeRemain;
-    public float maxTimeRemain;
+
     public float level;
     public GameConfig gameConfig;
 
@@ -65,7 +63,7 @@ public class GameController : MonoBehaviour
 
     private void SetDefaultMaxTimeRemain()
     {
-        maxTimeRemain = gameConfig.MaxCoolTime;
+        GameState.SetNormalProgressMax(gameConfig.MaxCoolTime);
     }
 
     private void OnBoxMerged(NumberBox box)
@@ -97,7 +95,8 @@ public class GameController : MonoBehaviour
 
     private void SetProgress()
     {
-        this.progress.BarValue = currentTimeRemain / maxTimeRemain * 100;
+        var timer = GameState.Current.NormalProgress;
+        this.progress.BarValue = timer.Ratio() * 100;
     }
 
     private void AddBox()
@@ -151,7 +150,7 @@ public class GameController : MonoBehaviour
     public void RequestNext()
     {
         level++;
-        maxTimeRemain = Mathf.Max(maxTimeRemain * gameConfig.DecayRate, gameConfig.MinCoolTime);
+        GameState.ReduceNormalProgressMax(gameConfig);
         ResetTimer();
         this.AddBox();
     }
@@ -170,9 +169,9 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        this.currentTimeRemain -= Time.deltaTime;
+        GameState.ReduceNormalProgress(Time.deltaTime);
         this.SetProgress();
-        if (this.currentTimeRemain < 0)
+        if (GameState.IsOverNormalProgress())
         {
             RequestNext();
         }
@@ -190,7 +189,7 @@ public class GameController : MonoBehaviour
 
     private void ResetTimer()
     {
-        this.currentTimeRemain = maxTimeRemain;
+        GameState.ResetNormalProgress();
     }
 
     private NumberBox[] NextBoxes()

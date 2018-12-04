@@ -41,5 +41,10 @@ namespace G2048.Models
             return Modify(remain: this.Remain, max: max);
         }
 
+        public float Ratio()
+        {
+            return Max == 0f ? 1 : Remain / Max;
+        }
+
     }
 }
