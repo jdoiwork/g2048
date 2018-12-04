@@ -23,7 +23,6 @@ public class GameController : MonoBehaviour
 
     public BoxTools boxTools;
 
-    public float level;
     public GameConfig gameConfig;
 
     private UserAction[] actions;
@@ -55,7 +54,6 @@ public class GameController : MonoBehaviour
         SetDefaultMaxTimeRemain();
         ResetTimer();
 
-        level = 0;
         score.Reset();
 
         AddBox();
@@ -155,7 +153,6 @@ public class GameController : MonoBehaviour
 
     public void RequestNext()
     {
-        level++;
         GameState.ReduceNormalProgressMax(gameConfig);
 
         this.AddBox();
@@ -167,9 +164,10 @@ public class GameController : MonoBehaviour
         {
             boxes = boxTools.Bomb(boxes);
             UpdatePosition();
-            ResetTimer();
+
             score.Bomb();
             SetDefaultMaxTimeRemain();
+            ResetTimer();
             Debug.Log("bomb");
         }
     }
