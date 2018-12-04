@@ -40,6 +40,12 @@ namespace G2048.Models
         }
 
         /// <summary>
+        /// ゲームオーバー猶予時間
+        /// </summary>
+        /// <value>The max alert cool time.</value>
+        public float MaxAlertCoolTime { get; set; }
+
+        /// <summary>
         /// スコアのボーナス係数
         /// </summary>
         public ulong ScoreScale

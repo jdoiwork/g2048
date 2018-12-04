@@ -26,8 +26,9 @@ namespace G2048.Tools
             DecayRate = 0.99f,
             MinCoolTime = 0.5f,
             MaxCoolTime = 4.0f,
+            MaxAlertCoolTime = 16.0f,
             ScoreScale = 1,
-            FullScoreScale = 16,
+            FullScoreScale = 4,
         };
         public static GameConfig Normal
         {
@@ -38,8 +39,9 @@ namespace G2048.Tools
             DecayRate = 0.98f,
             MinCoolTime = 0.25f,
             MaxCoolTime = 3.0f,
+            MaxAlertCoolTime = 8.0f,
             ScoreScale = 2,
-            FullScoreScale = 32,
+            FullScoreScale = 8,
         };
 
         public static GameConfig Hard
@@ -51,8 +53,9 @@ namespace G2048.Tools
             DecayRate = 0.97f,
             MinCoolTime = 0.1f,
             MaxCoolTime = 2.0f,
+            MaxAlertCoolTime = 4.0f,
             ScoreScale = 4,
-            FullScoreScale = 64,
+            FullScoreScale = 16,
         };
 
         public static GameDifficulty[] GameDifficulties

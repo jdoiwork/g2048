@@ -19,7 +19,12 @@ public class ProgressController : MonoBehaviour {
 	void Update ()
     {
         UpdateActive();
-        SetProgress();
+        if (this.Timer().Active)
+        {
+            // 非Active時にBarValueを更新すると
+            // エラーになるので、Active時のみ値を更新する
+            SetProgress();
+        }
     }
 
     private void UpdateActive()

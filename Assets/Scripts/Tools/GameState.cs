@@ -40,9 +40,19 @@ namespace G2048.Tools
 
         public static void ReduceNormalProgress(float time)
         {
-            var np = Current.NormalProgress;
             Current.NormalProgress =
-                np.ModifyRemain(np.Remain - time);
+                ReduceProgresWithTime(Current.NormalProgress, time);
+        }
+
+        public static void ReduceAlertProgress(float time)
+        {
+            Current.AlertProgress =
+                ReduceProgresWithTime(Current.AlertProgress, time);
+        }
+
+        public static Timer ReduceProgresWithTime(Timer timer, float time)
+        {
+            return timer.ModifyRemain(timer.Remain - time);
         }
 
         public static bool IsOverNormalProgress()
@@ -55,10 +65,21 @@ namespace G2048.Tools
             SetNormalProgress(Current.NormalProgress.Max);
         }
 
+        public static void ResetAlertProgress()
+        {
+            SetAlertProgress(Current.AlertProgress.Max);
+        }
+
         public static void SetNormalProgress(float time)
         {
             Current.NormalProgress =
                 Current.NormalProgress.ModifyRemain(time);
+        }
+
+        public static void SetAlertProgress(float time)
+        {
+            Current.AlertProgress =
+                Current.AlertProgress.ModifyRemain(Current.AlertProgress.Max);
         }
 
         public static void SetNormalProgressActive(bool active)
@@ -71,6 +92,12 @@ namespace G2048.Tools
         {
             Current.AlertProgress =
                 Current.AlertProgress.ModifyActive(active);
+        }
+
+        public static void SetAlertProgressMax(float max)
+        {
+            Current.AlertProgress =
+                Current.AlertProgress.ModifyMax(max);
         }
     }
 }

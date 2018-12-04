@@ -71,6 +71,7 @@ public class GameController : MonoBehaviour
     private void SetDefaultMaxTimeRemain()
     {
         GameState.SetNormalProgressMax(gameConfig.MaxCoolTime);
+        GameState.SetAlertProgressMax(gameConfig.MaxAlertCoolTime);
     }
 
     private void OnBoxMerged(NumberBox box)
@@ -174,7 +175,14 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        GameState.ReduceNormalProgress(Time.deltaTime);
+        if (GameState.Current.NormalProgress.Active)
+        {
+            GameState.ReduceNormalProgress(Time.deltaTime);
+        }
+        else
+        {
+            GameState.ReduceAlertProgress(Time.deltaTime);
+        }
 
         if (GameState.IsOverNormalProgress() &&
             GameState.Current.NormalProgress.Active)
@@ -197,6 +205,7 @@ public class GameController : MonoBehaviour
     private void ResetTimer()
     {
         GameState.ResetNormalProgress();
+        GameState.ResetAlertProgress();
     }
 
     private NumberBox[] NextBoxes()
