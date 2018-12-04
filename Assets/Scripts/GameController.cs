@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour
     private NumberBox[] boxes = new NumberBox[] { };
     private NumberController[] viewBoxes = new NumberController[] { };
     public ScoreController score;
-    public ProgressBarCircle progress;
 
     public GameObject boxPrefab;
     public GameObject pointPrefab;
@@ -56,7 +55,7 @@ public class GameController : MonoBehaviour
         ResetTimer();
 
         score.Reset();
-        SetProgress();
+
         AddBox();
         UpdatePosition();
     }
@@ -93,12 +92,6 @@ public class GameController : MonoBehaviour
         pointText.Point = CalcScore(box);
     }
 
-    private void SetProgress()
-    {
-        var timer = GameState.Current.NormalProgress;
-        this.progress.BarValue = timer.Ratio() * 100;
-    }
-
     private void AddBox()
     {
         boxTools.AddBox(boxes, this.CreateBox, this.GameOver);
@@ -117,6 +110,8 @@ public class GameController : MonoBehaviour
         viewBoxes = newViewBox.Cons(viewBoxes).ToArray();
 
         PlusScore(box);
+
+        ResetTimer();
     }
 
     private void GameOver()
@@ -151,7 +146,7 @@ public class GameController : MonoBehaviour
     {
         level++;
         GameState.ReduceNormalProgressMax(gameConfig);
-        ResetTimer();
+
         this.AddBox();
     }
 
@@ -170,11 +165,12 @@ public class GameController : MonoBehaviour
     void Update()
     {
         GameState.ReduceNormalProgress(Time.deltaTime);
-        this.SetProgress();
+
         if (GameState.IsOverNormalProgress())
         {
             RequestNext();
         }
+
 
         MouseState.UpdateCurrent();
 
