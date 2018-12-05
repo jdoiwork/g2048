@@ -240,6 +240,8 @@ public class GameController : MonoBehaviour
         return
             actions
                 .Where(action => action.Input.HasOccured())
-                .Aggregate(boxes, (bs, action) => action.Merge(bs));
+                .Aggregate(boxes, (bs, action) => action.Merge(bs))
+                .Where(box => box.N < 2048).ToArray()
+                ;
     }
 }
