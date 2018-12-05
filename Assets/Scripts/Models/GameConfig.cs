@@ -73,5 +73,9 @@ namespace G2048.Models
         /// </summary>
         public ulong BombCostScale { get; set; }
 
+        /// <summary>
+        /// ボムしたらボーナスの底数
+        /// </summary>
+        public ulong BombBonus { get; set; }
     }
 }

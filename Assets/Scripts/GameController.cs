@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     public GameConfig gameConfig;
 
     private UserAction[] actions;
+    public int bombCount;
 
     public void OnDebugButton()
     {
@@ -49,7 +50,7 @@ public class GameController : MonoBehaviour
 
 
         gameConfig = GameConfigTools.Difficulty2Config(GameState.Current.Difficulty);
-
+        bombCount = 0;
         SetProgressActive(true);
 
         SetDefaultMaxTimeRemain();
@@ -103,8 +104,9 @@ public class GameController : MonoBehaviour
 
     private ulong CalcScore(ulong baseScore)
     {
+        var bombScale = (ulong)Math.Pow(gameConfig.BombBonus, bombCount);
         var full = boxes.Length == 16 ? gameConfig.FullScoreScale : 1;
-        return baseScore * gameConfig.ScoreScale * full;
+        return baseScore * gameConfig.ScoreScale * full * bombScale;
     }
 
     private IEnumerator CoCreatePointChunks(NumberStack ns)
@@ -195,6 +197,7 @@ public class GameController : MonoBehaviour
             score.Bomb();
             SetDefaultMaxTimeRemain();
             ResetTimer();
+            bombCount++;
             Debug.Log("bomb");
         }
     }

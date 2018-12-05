@@ -31,6 +31,7 @@ namespace G2048.Tools
             FullScoreScale = 4,
             InitialBombCost = 2,
             BombCostScale = 2,
+            BombBonus = 1,
         };
         public static GameConfig Normal
         {
@@ -46,6 +47,7 @@ namespace G2048.Tools
             FullScoreScale = 8,
             InitialBombCost = 4,
             BombCostScale = 4,
+            BombBonus = 2,
         };
 
         public static GameConfig Hard
@@ -62,6 +64,7 @@ namespace G2048.Tools
             FullScoreScale = 16,
             InitialBombCost = 8,
             BombCostScale = 8,
+            BombBonus = 2,
         };
 
         public static GameConfig Expert
@@ -78,6 +81,7 @@ namespace G2048.Tools
             FullScoreScale = 32,
             InitialBombCost = 16,
             BombCostScale = 16,
+            BombBonus = 2,
         };
 
         public static GameDifficulty[] GameDifficulties
