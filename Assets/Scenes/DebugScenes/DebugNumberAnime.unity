@@ -267,7 +267,7 @@ Prefab:
     - target: {fileID: 224663087639982334, guid: 05aad1f70e95b4045a2df0377e06ae9b,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 224663087639982334, guid: 05aad1f70e95b4045a2df0377e06ae9b,
         type: 2}
@@ -312,42 +312,16 @@ Prefab:
     - target: {fileID: 114678434243241656, guid: 05aad1f70e95b4045a2df0377e06ae9b,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114678434243241656, guid: 05aad1f70e95b4045a2df0377e06ae9b,
-        type: 2}
-      propertyPath: m_fontColor.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114678434243241656, guid: 05aad1f70e95b4045a2df0377e06ae9b,
-        type: 2}
-      propertyPath: m_fontColor32.rgba
-      value: 4278312200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05aad1f70e95b4045a2df0377e06ae9b, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1795747067 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1949325084483012, guid: 05aad1f70e95b4045a2df0377e06ae9b,
-    type: 2}
-  m_PrefabInternal: {fileID: 432655967}
 --- !u!224 &1795747068 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224663087639982334, guid: 05aad1f70e95b4045a2df0377e06ae9b,
     type: 2}
   m_PrefabInternal: {fileID: 432655967}
---- !u!114 &1795747072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1795747067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed26fb4a3f7c44a5aafe8a604b583d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1854018953
 GameObject:
   m_ObjectHideFlags: 0
