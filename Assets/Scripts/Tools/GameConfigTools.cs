@@ -64,6 +64,22 @@ namespace G2048.Tools
             BombCostScale = 8,
         };
 
+        public static GameConfig Expert
+        {
+            get;
+        } = new GameConfig
+        {
+            NumberRange = CreateRange(4),
+            DecayRate = 0.95f,
+            MinCoolTime = 0.05f,
+            MaxCoolTime = 1.0f,
+            MaxAlertCoolTime = 2.0f,
+            ScoreScale = 8,
+            FullScoreScale = 32,
+            InitialBombCost = 16,
+            BombCostScale = 16,
+        };
+
         public static GameDifficulty[] GameDifficulties
         {
             get;
@@ -71,6 +87,7 @@ namespace G2048.Tools
             GameDifficulty.Easy,
             GameDifficulty.Normal,
             GameDifficulty.Hard,
+            GameDifficulty.Expert,
         };
 
         public static GameConfig Difficulty2Config(GameDifficulty gameDifficulty)
@@ -80,6 +97,7 @@ namespace G2048.Tools
                 case GameDifficulty.Easy: return Easy;
                 case GameDifficulty.Normal: return Normal;
                 case GameDifficulty.Hard: return Hard;
+                case GameDifficulty.Expert: return Expert;
                 default: throw new NotImplementedException();
 
             }

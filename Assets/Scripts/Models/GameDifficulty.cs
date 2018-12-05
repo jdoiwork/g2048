@@ -6,5 +6,6 @@ namespace G2048.Models
         Easy,
         Normal,
         Hard,
+        Expert,
     }
 }
