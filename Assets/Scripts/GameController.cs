@@ -33,7 +33,8 @@ public class GameController : MonoBehaviour
     {
         //AddBox();
         //UpdatePosition();
-        GameOverWithForce(true);
+        //GameOverWithForce(true);
+        Hoge();
         Debug.Log("hello debug button");
     }
 
@@ -180,7 +181,7 @@ public class GameController : MonoBehaviour
         viewBoxes = viewBoxes.Take(len).ToArray();
     }
 
-    public void RequestNext()
+    public void RequestNextBox()
     {
         GameState.ReduceNormalProgressMax(gameConfig);
 
@@ -214,16 +215,15 @@ public class GameController : MonoBehaviour
             GameOver();
         }
 
-        if (GameState.IsOverNormalProgress() &&
-            GameState.Current.NormalProgress.Active)
+        if (CanAddNextBox())
         {
-            RequestNext();
+            RequestNextBox();
         }
 
 
         MouseState.UpdateCurrent();
 
-        var newBoxes = NextBoxes();
+        var newBoxes = UpdateBoxesWithUserInput();
 
         if (newBoxes != boxes)
         {
@@ -232,13 +232,19 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private static bool CanAddNextBox()
+    {
+        return GameState.IsOverNormalProgress() &&
+                    GameState.Current.NormalProgress.Active;
+    }
+
     private void ResetTimer()
     {
         GameState.ResetNormalProgress();
         GameState.ResetAlertProgress();
     }
 
-    private NumberBox[] NextBoxes()
+    private NumberBox[] UpdateBoxesWithUserInput()
     {
         return
             actions
@@ -246,5 +252,12 @@ public class GameController : MonoBehaviour
                 .Aggregate(boxes, (bs, action) => action.Merge(bs))
                 .Where(box => box.N < 2048).ToArray()
                 ;
+    }
+
+    public void Hoge()
+    {
+        //SceneManager.LoadScene("Kari", LoadSceneMode.Additive);
+        //var scene = SceneManager.GetSceneAt(0);
+        Time.timeScale = 0;
     }
 }
