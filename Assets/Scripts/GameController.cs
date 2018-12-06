@@ -158,6 +158,11 @@ public class GameController : MonoBehaviour
         GameOverWithForce(false);
     }
 
+    public void RequestGameOver()
+    {
+        GameOverWithForce(true);
+    }
+
     private void GameOverWithForce(bool force)
     {
         if (GameState.IsOverAlertProgress() || force)
