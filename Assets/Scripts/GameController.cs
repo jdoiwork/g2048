@@ -34,7 +34,6 @@ public class GameController : MonoBehaviour
         //AddBox();
         //UpdatePosition();
         //GameOverWithForce(true);
-        Hoge();
         Debug.Log("hello debug button");
     }
 
@@ -264,10 +263,4 @@ public class GameController : MonoBehaviour
                 ;
     }
 
-    public void Hoge()
-    {
-        //SceneManager.LoadScene("Kari", LoadSceneMode.Additive);
-        //var scene = SceneManager.GetSceneAt(0);
-        Time.timeScale = 0;
-    }
 }
