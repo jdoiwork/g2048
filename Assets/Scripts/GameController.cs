@@ -205,6 +205,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (GameState.Current.GameRunning == GameRunning.Pause)
+        {
+            return;
+        }
+
         if (GameState.Current.NormalProgress.Active)
         {
             GameState.ReduceNormalProgress(Time.deltaTime);
