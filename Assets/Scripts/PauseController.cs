@@ -22,6 +22,7 @@ public class PauseController : MonoBehaviour {
     {
         pauseUI.SetActive(true);
         this.GameRunning = GameRunning.Pause;
+        Time.timeScale = 0f;
 
         Debug.Log("Pause ON");
     }
@@ -30,6 +31,7 @@ public class PauseController : MonoBehaviour {
     {
         pauseUI.SetActive(false);
         this.GameRunning = GameRunning.Running;
+        Time.timeScale = 1f;
 
         Debug.Log("Pause OFF");
     }
