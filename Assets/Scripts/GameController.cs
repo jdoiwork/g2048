@@ -10,6 +10,8 @@ using G2048.IO;
 using G2048.Tools;
 using G2048.Tools.Helpers;
 
+using UnityEngine.Advertisements;
+
 public class GameController : MonoBehaviour
 {
     private NumberBox[] boxes = new NumberBox[] { };
@@ -34,6 +36,7 @@ public class GameController : MonoBehaviour
         //AddBox();
         //UpdatePosition();
         //GameOverWithForce(true);
+        Advertisement.Show();
         Debug.Log("hello debug button");
     }
 
