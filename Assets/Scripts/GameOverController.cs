@@ -12,7 +12,7 @@ public class GameOverController : MonoBehaviour {
     {
         var pt = Score.Current.Point;
         Debug.Log(pt);
-        score.text = pt.ToString();
+        score.text = string.Format("{0:N0}", pt);
     }
 
     public void Restart()
