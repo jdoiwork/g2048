@@ -51,12 +51,13 @@ public class ScoreController : MonoBehaviour {
 
     public void SetScore(ulong score)
     {
-        scoreText.text = string.Format("{0}", score);
+        scoreText.text = ScoreFormatter.Format(score);
     }
 
     public void SetBombCost(ulong cost)
     {
-        bombCostText.text = string.Format("Cost -{0}", cost);
+        var costText = ScoreFormatter.Format(cost);
+        bombCostText.text = string.Format("Cost -{0}", costText);
     }
 
     public void Reset()
