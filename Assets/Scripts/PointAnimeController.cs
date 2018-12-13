@@ -7,7 +7,10 @@ public class PointAnimeController : MonoBehaviour {
     public void OnAnimeFinished()
     {
         var c = GetComponentInParent<PointController>();
-        c.DestroyGameObject();
+        if (c != null)
+        {
+            c.DestroyGameObject();
+        }
         Debug.Log("anime");
     }
 }
