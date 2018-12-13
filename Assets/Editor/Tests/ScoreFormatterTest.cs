@@ -30,6 +30,24 @@ public class ScoreFormatterTest {
         Assert.AreEqual("1,234,567", ScoreFormatter.Format(1234567));
     }
 
+    [Test]
+    public void ScoreFormatterTest_ScoreFormat_1()
+    {
+        Assert.AreEqual("Cost -1", ScoreFormatter.CostFormat(1));
+    }
+
+    [Test]
+    public void ScoreFormatterTest_ScoreFormat_1_234()
+    {
+        Assert.AreEqual("Cost -1,234", ScoreFormatter.CostFormat(1234));
+    }
+
+    [Test]
+    public void ScoreFormatterTest_ScoreFormat_1_234_567()
+    {
+        Assert.AreEqual("Cost -1,234,567", ScoreFormatter.CostFormat(1234567));
+    }
+
     // A UnityTest behaves like a coroutine in PlayMode
     // and allows you to yield null to skip a frame in EditMode
     //[UnityTest]
