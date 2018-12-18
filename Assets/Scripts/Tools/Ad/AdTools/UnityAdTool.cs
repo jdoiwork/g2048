@@ -9,7 +9,7 @@ namespace G2048.Tools.Ad.AdTools
     {
         public void Destroy()
         {
-
+            // do nothing
         }
 
         public bool IsReady()
