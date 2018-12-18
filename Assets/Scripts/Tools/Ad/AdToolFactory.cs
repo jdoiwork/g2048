@@ -1,5 +1,6 @@
 ﻿using System;
 using G2048.Tools.Ad.AdTools;
+using UnityEngine;
 
 
 #pragma warning disable CS0436 // 型がインポートされた型と競合しています
@@ -10,6 +11,7 @@ namespace G2048.Tools.Ad
     {
         public static void Init()
         {
+            Debug.Log("Init Ad");
         }
 
         public static AdTool Create()
