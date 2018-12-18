@@ -96,6 +96,11 @@ namespace G2048.IO
             private set;
         } = MouseState.Create();
 
+        public static void InitCurrent()
+        {
+            Current = Create();
+        }
+
         public static void UpdateCurrent()
         {
             Current = Current.Update();

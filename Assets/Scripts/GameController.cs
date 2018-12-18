@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
             UserActionFactory.Down(boxTools.MergeDown),
         };
 
+        MouseState.InitCurrent();
 
         gameConfig = GameConfigTools.Difficulty2Config(GameState.Current.Difficulty);
         bombCount = 0;
