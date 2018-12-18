@@ -29,16 +29,17 @@ namespace G2048.Tools.Ad.AdTools
 
         private Action<ShowResult> CreateCallback(Action<AdResult> callback)
         {
-            return (sr) => ConvertCallbackResult(callback, sr);
+            return (sr) => callback(ConvertResult(sr));
         }
 
-        private void ConvertCallbackResult(Action<AdResult> callback, ShowResult sr)
+        private AdResult ConvertResult(ShowResult sr)
         {
             switch (sr)
             {
-                case ShowResult.Failed: callback(AdResult.Failed); break;
-                case ShowResult.Skipped: callback(AdResult.Skipped); break;
-                case ShowResult.Finished: callback(AdResult.Finished); break;
+                case ShowResult.Failed: return AdResult.Failed;
+                case ShowResult.Skipped: return AdResult.Skipped; 
+                case ShowResult.Finished: return AdResult.Finished;
+                default: return AdResult.Failed;
             }
         }
     }
