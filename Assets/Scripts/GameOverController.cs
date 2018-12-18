@@ -20,12 +20,16 @@ public class GameOverController : MonoBehaviour {
     public void Restart()
     {
         Debug.Log("restart");
-        SceneManager.LoadScene("Main");
+        GameState.Current.AfterAdSceneName = "Main";
+        //SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("AdMain");
     }
 
     public void BackToTitle()
     {
         Debug.Log("title");
-        SceneManager.LoadScene("Title");
+        GameState.Current.AfterAdSceneName = "Title";
+        //SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("AdMain");
     }
 }

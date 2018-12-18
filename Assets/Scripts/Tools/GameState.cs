@@ -15,6 +15,7 @@ namespace G2048.Tools
         public Timer NormalProgress { get; set; }
         public Timer AlertProgress { get; set; }
         public GameRunning GameRunning { get; set; }
+        public string AfterAdSceneName { get; set; }
 
         public static GameState Current
         {
