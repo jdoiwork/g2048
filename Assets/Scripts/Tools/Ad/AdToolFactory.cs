@@ -1,5 +1,6 @@
 ﻿using System;
 using G2048.Tools.Ad.AdTools;
+using GoogleMobileAds.Api;
 using UnityEngine;
 
 
@@ -11,7 +12,15 @@ namespace G2048.Tools.Ad
     {
         public static void Init()
         {
+            InitAdMob();
             Debug.Log("Init Ad");
+        }
+
+        private static void InitAdMob()
+        {
+            var appId = "ca-app-pub-3940256099942544~1458002511";
+
+            MobileAds.Initialize(appId);
         }
 
         public static AdTool Create()
