@@ -18,9 +18,7 @@ namespace G2048.Tools.Ad
 
         private static void InitAdMob()
         {
-            var appId = "ca-app-pub-3940256099942544~1458002511";
-
-            MobileAds.Initialize(appId);
+            MobileAds.Initialize(AdMobIds.AppId);
         }
 
         public static AdTool Create()
