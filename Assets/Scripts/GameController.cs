@@ -9,7 +9,6 @@ using Jdoi.Functional;
 using G2048.IO;
 using G2048.Tools;
 using G2048.Tools.Helpers;
-using G2048.Tools.Ad;
 
 public class GameController : MonoBehaviour
 {
@@ -35,11 +34,6 @@ public class GameController : MonoBehaviour
         //AddBox();
         //UpdatePosition();
         //GameOverWithForce(true);
-        //var so = new ShowOptions { resultCallback = (sr) => { /* ... */ } };
-        //Advertisement.Show(so);
-        //Advertisement.Show();
-        var adTool = AdToolFactory.Create();
-        adTool.Show(ar => Debug.Log(ar));
         Debug.Log("hello debug button");
     }
 
