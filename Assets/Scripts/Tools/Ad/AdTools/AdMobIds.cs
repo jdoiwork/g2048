@@ -1,33 +1,43 @@
 ﻿using System;
+using G2048.Tools.Ad.AdTools.AdMob;
+
 namespace G2048.Tools.Ad.AdTools
 {
     public static class AdMobIds
     {
+        public static AdMobId Ids
+        {
+            get {
+#if UNITY_ANDROID
+                return new UnexpectedAdMobIds();
+#elif UNITY_IPHONE
+                return new IOsAdMobIds();
+#else
+                return new UnexpectedAdMobIds();
+#endif
+            }
+        }
         public static string AppId
         {
             get
             {
-#if UNITY_ANDROID
-                return "ca-app-pub-3940256099942544~3347511713"; // example id
-#elif UNITY_IPHONE
-                return "ca-app-pub-3674324382300166~6878459301";
-#else
-                return "unexpected_platform";
-#endif
+                return Ids.AppId;
             }
         }
-        
+
         public static string InterstitialId
         {
             get
             {
-#if UNITY_ANDROID
-                return "ca-app-pub-3940256099942544/1033173712"; // example id
-#elif UNITY_IPHONE
-                return "ca-app-pub-3674324382300166/6927518620";
-#else
-                return "unexpected_platform";
-#endif
+                return Ids.InterstitialId;
+            }
+        }
+
+        public static string VideoId
+        {
+            get
+            {
+                return Ids.VideoId;
             }
         }
 
