@@ -23,17 +23,24 @@ public class AdMainController : MonoBehaviour {
 	void Update () {
         try
         {
-            if (IsTimeup() && !isShown)
+            if (isShown)
+            {
+                return;
+            }
+            else if (IsTimeup())
             {
                 Debug.Log("Time UP");
                 NextScene();
             }
-
-            if (!isShown && adTool.IsReady())
+            else if (adTool.IsReady())
             {
                 isShown = true;
                 Debug.Log("isShown = true");
                 adTool.Show(AfterAd);
+            }
+            else
+            {
+                Debug.Log("Waiting Ad is ready");
             }
 
         }
