@@ -4,8 +4,6 @@ using GoogleMobileAds.Api;
 using UnityEngine;
 
 
-#pragma warning disable CS0436 // 型がインポートされた型と競合しています
-
 namespace G2048.Tools.Ad
 {
     public static class AdToolFactory
@@ -23,10 +21,9 @@ namespace G2048.Tools.Ad
 
         public static AdTool Create()
         {
-            return new UnityAdTool();
+            //return new UnityAdTool();
+            return new AdMobInterstitialAdTool();
         }
     }
 }
 
-
-#pragma warning restore CS0436 // 型がインポートされた型と競合しています
