@@ -83,9 +83,15 @@ public class AdMainController : MonoBehaviour {
         NextScene();
     }
 
-    private static void NextScene()
+    private void NextScene()
     {
         var nextScene = GameState.Current.AfterAdSceneName;
         SceneManager.LoadScene(nextScene);
+        DestroyAdTool();
+    }
+
+    private void DestroyAdTool()
+    {
+        this.adTool?.Destroy();
     }
 }
