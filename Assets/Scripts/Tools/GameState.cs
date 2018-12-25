@@ -16,6 +16,7 @@ namespace G2048.Tools
         public Timer AlertProgress { get; set; }
         public GameRunning GameRunning { get; set; }
         public string AfterAdSceneName { get; set; }
+        public DateTime LastAdShownTime { get; set; } = DateTime.MinValue;
 
         public static GameState Current
         {
@@ -44,6 +45,11 @@ namespace G2048.Tools
         {
             Current.NormalProgress =
                 ReduceProgresWithTime(Current.NormalProgress, time);
+        }
+
+        public static void UpdateLastAdShownTime()
+        {
+            Current.LastAdShownTime = DateTime.Now;
         }
 
         public static void ReduceAlertProgress(float time)

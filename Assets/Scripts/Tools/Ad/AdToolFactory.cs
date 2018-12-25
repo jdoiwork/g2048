@@ -21,8 +21,11 @@ namespace G2048.Tools.Ad
 
         public static AdTool Create()
         {
-            //return new UnityAdTool();
+#if UNITY_EDITOR
+            return new UnityAdTool();
+#else
             return new AdMobInterstitialAdTool();
+#endif
         }
     }
 }

@@ -11,16 +11,36 @@ public class AdMainController : MonoBehaviour {
     private AdTool adTool;
     private bool isShown = false;
     private DateTime startTime;
+    private TimeSpan adShownTime = TimeSpan.FromMinutes(15);
 
-	// Use this for initialization
-	void Start () {
-        //AdToolFactory.Init();
+    // Use this for initialization
+    void Start ()
+    {
+        if (IsOverAdShownTime())
+        {
+            Debug.Log("Skip AD");
+            NextScene();
+        }
+        else
+        {
+            Debug.Log("Show AD");
+            InitFields();
+        }
+    }
+
+    private void InitFields()
+    {
         adTool = AdToolFactory.Create();
         startTime = DateTime.Now;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    private bool IsOverAdShownTime()
+    {
+        return DateTime.Now - GameState.Current.LastAdShownTime < adShownTime;
+    }
+
+    // Update is called once per frame
+    void Update () {
         try
         {
             if (isShown)
@@ -36,6 +56,7 @@ public class AdMainController : MonoBehaviour {
             {
                 isShown = true;
                 Debug.Log("isShown = true");
+                GameState.UpdateLastAdShownTime();
                 adTool.Show(AfterAd);
             }
             else
