@@ -33,6 +33,9 @@ namespace G2048.Tools.Ad.AdTools
         {
             this.interstitial.OnAdFailedToLoad += OnAdFailedToLoad;
             this.interstitial.OnAdClosed += OnAdClosed;
+            this.interstitial.OnAdLeavingApplication += (_, __) => Debug.Log("OnAdLeavingApplication");
+            this.interstitial.OnAdOpening += (_, __) => Debug.Log("OnAdOpening");
+            this.interstitial.OnAdLoaded += (_, __) => Debug.Log("OnAdLoaded");
         }
 
         private void OnAdClosed(object sender, EventArgs e)
