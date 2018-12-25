@@ -188,10 +188,11 @@ public class GameController : MonoBehaviour
              .Each((view, x, y, n) => view.SetPos(x, y).SetNumberText(n));
 
         var len = boxes.Length;
-        foreach (var item in viewBoxes.Skip(len))
-        {
-            UnityEngine.Object.Destroy(item.gameObject);
-        }
+
+        viewBoxes
+            .Skip(len)
+            .Select(item => item.gameObject)
+            .Each(UnityEngine.Object.Destroy);
 
         viewBoxes = viewBoxes.Take(len).ToArray();
     }
@@ -225,21 +226,10 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        if (GameState.Current.NormalProgress.Active)
-        {
-            GameState.ReduceNormalProgress(Time.deltaTime);
-        }
-        else
-        {
-            GameState.ReduceAlertProgress(Time.deltaTime);
-            GameOver();
-        }
-
         if (CanAddNextBox())
         {
             RequestNextBox();
         }
-
 
         MouseState.UpdateCurrent();
 
@@ -249,6 +239,21 @@ public class GameController : MonoBehaviour
         {
             boxes = newBoxes;
             UpdatePosition();
+        }
+
+        ReduceProgress();
+    }
+
+    private void ReduceProgress()
+    {
+        if (GameState.Current.NormalProgress.Active)
+        {
+            GameState.ReduceNormalProgress(Time.deltaTime);
+        }
+        else
+        {
+            GameState.ReduceAlertProgress(Time.deltaTime);
+            GameOver();
         }
     }
 
