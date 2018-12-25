@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using G2048.Behaviors;
 using G2048.Models;
 using G2048.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreController : MonoBehaviour {
+public class ScoreController : MonoBehaviour, StateSavable
+{
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI bombCostText;
     public Button bombButton;

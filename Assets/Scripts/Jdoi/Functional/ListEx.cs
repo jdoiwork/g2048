@@ -10,5 +10,13 @@ namespace Jdoi.Functional
         {
             return tail.Prepend(head);
         }
+
+        public static void Each<A>(this IEnumerable<A> xs, Action<A> action)
+        {
+            foreach (var item in xs)
+            {
+                action(item);
+            }
+        }
     }
 }

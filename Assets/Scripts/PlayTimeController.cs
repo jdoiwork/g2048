@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using G2048.Behaviors;
+using G2048.Models;
+using G2048.Tools;
 
-public class PlayTimeController : MonoBehaviour {
+public class PlayTimeController : MonoBehaviour, StateSavable
+{
 
     public TextMeshProUGUI text;
 
@@ -24,15 +28,12 @@ public class PlayTimeController : MonoBehaviour {
 
     private void UpdateTimeText()
     {
-        text.text = ElapsedTimeText(this.elapsedTime);
+        text.text = PlayTimeFormatter.Format(this.elapsedTime);
     }
 
-    private string ElapsedTimeText(float seconds)
+    public void Save()
     {
-        var t = TimeSpan.FromSeconds(seconds);
-        var f = ((t.TotalMinutes > 60) ? "{0}:{1:D2}:{2:D2}" : "{1:D2}:{2:D2}");
-        return string.Format(f, (int)t.TotalHours, t.Minutes, t.Seconds);
+        Score.Current.PlayTime = this.elapsedTime;
+        Debug.Log("PlayTime Save");
     }
-
-
 }

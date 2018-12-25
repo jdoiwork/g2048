@@ -1825,6 +1825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 499044550}
+  playTime: {fileID: 1295523639}
   boxPrefab: {fileID: 1799152562823608, guid: d23038a7d595f4a45975f18789633fab, type: 2}
   pointPrefab: {fileID: 1015632095393886, guid: ae4661e348a1b4dfe8d4b21dd9492c9a,
     type: 2}

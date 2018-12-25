@@ -13,6 +13,8 @@ namespace G2048.Models
             set;
         }
 
+        public float PlayTime { get; set; }
+
         private static Score _current;
         public static Score Current {
             get {

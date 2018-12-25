@@ -8,13 +8,15 @@ using G2048.Tools;
 
 public class GameOverController : MonoBehaviour {
     public TextMeshProUGUI score;
+    public TextMeshProUGUI playTime;
 
     public void Start()
     {
-        var pt = Score.Current.Point;
-        Debug.Log(pt);
-        score.text = string.Format("{0:N0}", pt);
-        score.text = ScoreFormatter.Format(pt);
+        var currentScore = Score.Current;
+        Debug.Log(currentScore.Point);
+
+        score.text = ScoreFormatter.Format(currentScore.Point);
+        playTime.text = PlayTimeFormatter.Format(currentScore.PlayTime);
     }
 
     public void Restart()

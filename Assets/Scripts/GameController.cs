@@ -9,12 +9,15 @@ using Jdoi.Functional;
 using G2048.IO;
 using G2048.Tools;
 using G2048.Tools.Helpers;
+using G2048.Behaviors;
 
 public class GameController : MonoBehaviour
 {
     private NumberBox[] boxes = new NumberBox[] { };
     private NumberController[] viewBoxes = new NumberController[] { };
     public ScoreController score;
+    public PlayTimeController playTime;
+    public StateSavable[] stateSavables; 
 
     public GameObject boxPrefab;
     public GameObject pointPrefab;
@@ -47,6 +50,8 @@ public class GameController : MonoBehaviour
             UserActionFactory.Up(boxTools.MergeUp),
             UserActionFactory.Down(boxTools.MergeDown),
         };
+
+        this.stateSavables = new StateSavable[] { score, playTime };
 
         MouseState.InitCurrent();
 
@@ -167,9 +172,14 @@ public class GameController : MonoBehaviour
     {
         if (GameState.IsOverAlertProgress() || force)
         {
-            score.Save();
+            SaveState();
             SceneManager.LoadScene("GameOver");
         }
+    }
+
+    private void SaveState()
+    {
+        stateSavables.Each(ss => ss.Save());
     }
 
     private void UpdatePosition()
