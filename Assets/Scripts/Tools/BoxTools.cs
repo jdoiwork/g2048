@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using G2048.Models;
 using G2048.Tools.Helpers;
+using UnityEngine;
 
 namespace G2048.Tools
 {
@@ -87,6 +88,7 @@ namespace G2048.Tools
             }
             else
             {
+                Debug.Log("Cannot Add Box");
                 pointNotFound();
             }
         }
