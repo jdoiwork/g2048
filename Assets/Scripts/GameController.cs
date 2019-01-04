@@ -199,6 +199,7 @@ public class GameController : MonoBehaviour
 
     public void RequestNextBox()
     {
+        Debug.Log("Request Next Box");
         GameState.ReduceNormalProgressMax(gameConfig);
 
         this.AddBox();
