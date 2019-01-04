@@ -58,7 +58,7 @@ namespace G2048.Tools
             NumberRange = CreateRange(3),
             DecayRate = 0.97f,
             MinCoolTime = 0.1f,
-            MaxCoolTime = 2.0f,
+            MaxCoolTime = 1.5f,
             MaxAlertCoolTime = 4.0f,
             ScoreScale = 4,
             FullScoreScale = 16,
