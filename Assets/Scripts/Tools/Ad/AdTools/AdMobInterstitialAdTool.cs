@@ -26,6 +26,7 @@ namespace G2048.Tools.Ad.AdTools
             return new AdRequest
                 .Builder()
                 .AddTestDevice("f17111d750a8109fb7f0710b36c68484")
+                .AddTestDevice("72feb768bee2d2490068ae81cc2cd48c")
                 .Build();
         }
 
