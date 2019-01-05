@@ -17,14 +17,22 @@ namespace G2048.Tools.Ad
         private static void InitAdMob()
         {
             MobileAds.Initialize(AdMobIds.AppId);
+#if !UNITY_EDITOR
+            preloadedAdmob = new AdMobInterstitialAdTool();
+#endif
         }
+#if !UNITY_EDITOR
+        private static AdMobInterstitialAdTool preloadedAdmob;
+#endif
 
         public static AdTool Create()
         {
 #if UNITY_EDITOR
             return new UnityAdTool();
 #else
-            return new AdMobInterstitialAdTool();
+            var admob = preloadedAdmob;
+            preloadedAdmob = new AdMobInterstitialAdTool();
+            return admob;
 #endif
         }
     }
