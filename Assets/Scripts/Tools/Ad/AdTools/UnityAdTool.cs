@@ -1,7 +1,8 @@
 ﻿using System;
 
+#if !UNITY_WEBGL
 using UnityEngine.Advertisements;
-#pragma warning disable CS0436 // 型がインポートされた型と競合しています
+#endif
 
 namespace G2048.Tools.Ad.AdTools
 {
@@ -14,22 +15,31 @@ namespace G2048.Tools.Ad.AdTools
 
         public bool IsReady()
         {
-            return Advertisement.IsReady();
+#if UNITY_WEBGL
+          return true;
+#else
+          return Advertisement.IsReady();
+#endif
         }
 
         public void Show(Action<AdResult> resultCallback)
         {
-            Advertisement.Show(CreateShowOptions(resultCallback));
+#if UNITY_WEBGL
+          resultCallback(AdResult.Failed);
+#else
+      Advertisement.Show(CreateShowOptions(resultCallback));
+#endif
         }
+#if !UNITY_WEBGL
 
         private ShowOptions CreateShowOptions(Action<AdResult> resultCallback)
         {
             return new ShowOptions { resultCallback = CreateCallback(resultCallback) };
         }
-
         private Action<ShowResult> CreateCallback(Action<AdResult> callback)
         {
-            return (sr) => callback(ConvertResult(sr));
+          return (sr) => callback(ConvertResult(sr));
+
         }
 
         private AdResult ConvertResult(ShowResult sr)
@@ -42,8 +52,9 @@ namespace G2048.Tools.Ad.AdTools
                 default: return AdResult.Failed;
             }
         }
-    }
+#endif
+
+  }
 }
 
 
-#pragma warning restore CS0436 // 型がインポートされた型と競合しています

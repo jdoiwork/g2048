@@ -73,7 +73,11 @@ public class AdMainController : MonoBehaviour {
 
     private bool IsTimeup()
     {
-        return DateTime.Now - startTime > TimeSpan.FromSeconds(3);
+#if UNITY_WEBGL
+      return true;
+#else
+      return DateTime.Now - startTime > TimeSpan.FromSeconds(3);
+#endif
     }
 
     private void AfterAd(AdResult ar)
